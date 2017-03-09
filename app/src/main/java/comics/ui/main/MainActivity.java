@@ -1,13 +1,18 @@
 package comics.ui.main;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import comics.core.view.MainContract;
 import comics.ui.BaseActivity;
 import pe.nextdots.comics.R;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MainContract.MainView{
+
 
     @Override
     protected int getLayoutId() {
@@ -39,5 +44,55 @@ public class MainActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void refreshComicList() {
+        
+    }
+
+    @Override
+    public boolean isThereInternet() {
+        return false;
+    }
+
+    @Override
+    public void showInternetErrorMessage(@StringRes int noInternetResId) {
+
+    }
+
+    @Override
+    public void showLoader(boolean isLoading) {
+
+    }
+
+    @Override
+    public void tryAgain() {
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+
+    }
+
+    @Override
+    public Context context() {
+        return getApplicationContext();
+    }
+
+    @Override
+    public Intent intent() {
+        return getIntent();
+    }
+
+    @Override
+    public void setupUiElements() {
+        //// TODO: 09/03/2017  
+    }
+
+    @Override
+    public void finishActivity() {
+
     }
 }

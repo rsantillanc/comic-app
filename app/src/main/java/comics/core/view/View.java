@@ -9,7 +9,8 @@ import android.content.Intent;
  */
 
 public interface View {
-    void initViews();
     Context context();
     Intent intent();
+    void setupUiElements();
+    void finishActivity();
 }
