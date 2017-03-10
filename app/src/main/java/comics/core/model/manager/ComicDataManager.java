@@ -13,11 +13,11 @@ import comics.core.model.rest.RestAdapter;
 public class ComicDataManager extends BaseDataManager {
 
     public ComicDataManager() {
-        createApi();
+        createRestApi();
     }
 
     @Override
-    void createApi() {
+    void createRestApi() {
         RestAdapter restAdapter = new RestAdapter(Connection.URL_BASE);
         ComicDeserializer deserialize = new ComicDeserializer();
         api = restAdapter.createApiWithCustomConverter(ComicDataWrapper.class, deserialize);

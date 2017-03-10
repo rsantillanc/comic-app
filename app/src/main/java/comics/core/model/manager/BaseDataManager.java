@@ -13,7 +13,7 @@ public abstract class BaseDataManager {
 
     protected MarvelApi api;
 
-    void createApi(){
+    void createRestApi(){
         RestAdapter restAdapter = new RestAdapter(Connection.URL_BASE);
         api = restAdapter.createApi();
     }
