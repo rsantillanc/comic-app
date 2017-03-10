@@ -6,5 +6,5 @@ package comics.core.model.rest;
  */
 
 public interface MarvelApi {
-
+  
 }

@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -69,6 +71,11 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
         presenter.attachView(this);
     }
 
+    private void setupRecyclerView() {
+        comicRecyclerV.setLayoutManager(new StaggeredGridLayoutManager(0, StaggeredGridLayoutManager.VERTICAL));
+        comicRecyclerV.setHasFixedSize(false);
+        comicRecyclerV.addItemDecoration(new DividerItemDecoration(context(),DividerItemDecoration.VERTICAL));
+    }
 
     @Override
     public void refreshComicList() {
