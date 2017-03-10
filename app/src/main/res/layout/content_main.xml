@@ -9,5 +9,7 @@
     tools:context="comics.ui.main.MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <!--Comics list-->
+    <include layout="@layout/include_recycler_view"/>
 
 </RelativeLayout>

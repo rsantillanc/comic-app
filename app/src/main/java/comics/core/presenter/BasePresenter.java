@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 public abstract class BasePresenter<T> {
     protected T mvpView;
 
-    void attachView(@NonNull T view) {
+    public void attachView(@NonNull T view) {
         this.mvpView = view;
     }
 

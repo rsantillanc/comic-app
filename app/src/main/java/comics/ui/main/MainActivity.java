@@ -4,14 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import butterknife.BindView;
+import comics.core.presenter.MainPresenter;
 import comics.core.view.MainContract;
 import comics.ui.BaseActivity;
 import pe.nextdots.comics.R;
 
-public class MainActivity extends BaseActivity implements MainContract.MainView{
+public class MainActivity extends BaseActivity implements MainContract.MainView {
+
+    @BindView(R.id.recycler_view)
+    RecyclerView comicRecyclerV;
+
+    private MainPresenter presenter;
 
 
     @Override
@@ -22,7 +30,18 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        createToolbar();
+        createPresenter();
+        setupUiElements();
+
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.detachView();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -36,19 +55,24 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.main_action_refresh:
+                refreshComicList();
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+
+    private void createPresenter() {
+        presenter = new MainPresenter();
+        presenter.attachView(this);
+    }
+
+
     @Override
     public void refreshComicList() {
-        
+        showToast("Loading marvel comics!");
     }
 
     @Override
@@ -88,7 +112,8 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
 
     @Override
     public void setupUiElements() {
-        //// TODO: 09/03/2017  
+        //Enabled instance for all views
+        bindActivity(this);
     }
 
     @Override
