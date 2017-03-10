@@ -62,6 +62,7 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
                 refreshComicList();
                 break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

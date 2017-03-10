@@ -1,4 +1,4 @@
-package comics.core.model;
+package comics.core.model.manager;
 
 import comics.core.model.rest.Connection;
 import comics.core.model.rest.MarvelApi;

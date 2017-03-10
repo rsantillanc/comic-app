@@ -1,10 +1,17 @@
 package comics.core.model.rest;
 
+import android.support.annotation.NonNull;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -32,6 +39,22 @@ public class RestAdapter {
         return retrofit.create(MarvelApi.class);
     }
 
+    public MarvelApi createApiWithCustomConverter(@NonNull Type type, @NonNull Object deserialized) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(urlBase)
+                .addConverterFactory(customConverterFactory(type, deserialized))
+                .client(makeOkHttpClient())
+                .build();
+        return retrofit.create(MarvelApi.class);
+    }
+
+    private Converter.Factory customConverterFactory(@NonNull Type type, @NonNull Object deserialized) {
+        Gson build = new GsonBuilder()
+                .registerTypeAdapter(type, deserialized)
+                .create();
+        return GsonConverterFactory.create(build);
+    }
+
     private OkHttpClient makeOkHttpClient() {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient().newBuilder();
         httpClientBuilder.connectTimeout(HTTP_CONNECT_TIMEOUT, TimeUnit.SECONDS);
@@ -39,6 +62,7 @@ public class RestAdapter {
         httpClientBuilder.addInterceptor(makeLoggingInterceptor());
         return httpClientBuilder.build();
     }
+
 
     private HttpLoggingInterceptor makeLoggingInterceptor() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
