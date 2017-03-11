@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        createToolbar();
+        createToolbar(true, getLayoutInflater().inflate(R.layout.content_app_title, null));
         createPresenter();
         setupUiElements();
 

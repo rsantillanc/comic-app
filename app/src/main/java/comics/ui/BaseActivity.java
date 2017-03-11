@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -14,7 +15,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
+
 import butterknife.ButterKnife;
+import comics._utility.C;
 import pe.nextdots.comics.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -47,12 +50,19 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .commit();
     }
 
-    protected void createToolbar() {
+    protected void createToolbar(boolean isCustomView, View customView) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (isCustomView) {
+            toolbar.setTitle(C.EMPTY);
+            ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+                    ActionBar.LayoutParams.MATCH_PARENT,
+                    ActionBar.LayoutParams.MATCH_PARENT);
+            toolbar.addView(customView,params);
+        }
         setSupportActionBar(toolbar);
     }
 
-    protected void playAnimations(){
+    protected void playAnimations() {
         initHeightWidthSScreen();
     }
 
@@ -79,12 +89,13 @@ public abstract class BaseActivity extends AppCompatActivity {
                         WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
-    protected void initHeightWidthSScreen(){
+    protected void initHeightWidthSScreen() {
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         heightScreen = displaymetrics.heightPixels;
         widthScreen = displaymetrics.widthPixels;
     }
+
     protected void toggleContainer(View v) {
 
         Rect r = new Rect();
