@@ -31,10 +31,16 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
     }
 
     @Override
-    public void onGetComics(int _limit) {
+    public void onGetComics() {
         mvpView.showLoader(true);
-        comicManager.addLimit(_limit);
+        comicManager.addLimit(generateRandomLimit());
         comicManager.getComicsFromServer();
+    }
+
+    private int generateRandomLimit() {
+        final int MAX = 100;
+        final int MIN = 30;
+        return (int) (Math.random() * (MAX - MIN) + MIN);
     }
 
     @Override

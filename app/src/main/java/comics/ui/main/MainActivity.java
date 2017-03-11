@@ -37,15 +37,21 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
         createToolbar(true, getLayoutInflater().inflate(R.layout.content_app_title, null));
         createPresenter();
         setupUiElements();
-
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadComics();
+    }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         presenter.detachView();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,7 +76,7 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
 
     private void loadComics() {
         if (isThereInternet())
-            presenter.onGetComics(30);
+            presenter.onGetComics();
     }
 
 

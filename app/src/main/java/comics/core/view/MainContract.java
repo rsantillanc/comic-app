@@ -10,7 +10,7 @@ public interface MainContract {
     interface ViewAction {
         void start();
 
-        void onGetComics(int limit);
+        void onGetComics();
     }
 
     interface MainView extends Loadable {
