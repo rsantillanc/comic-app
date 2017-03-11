@@ -5,7 +5,6 @@ import android.util.Log;
 import java.io.IOException;
 
 import comics._utility.C;
-import comics._utility.SecureUtility;
 import comics.core.model.deserialize.ComicDeserializer;
 import comics.core.model.entity.ComicDataWrapper;
 import comics.core.model.rest.Connection;
@@ -48,7 +47,7 @@ public class ComicDataManager extends BaseDataManager {
 
     private void getComics() {
 
-        api.getComics(limit, apiKey, timestamp, SecureUtility.MakeMd5Hash(timestamp)).enqueue(new Callback<ComicDataWrapper>() {
+        api.getComics(limit, apiKey, timestamp, hash).enqueue(new Callback<ComicDataWrapper>() {
             @Override
             public void onResponse(Call<ComicDataWrapper> call, Response<ComicDataWrapper> response) {
                 if (response.isSuccessful()) {

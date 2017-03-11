@@ -40,8 +40,8 @@ public class ComicDeserializer implements JsonDeserializer<ComicDataWrapper> {
                 .get(RESULTS).getAsJsonArray(); //Comics into array
 
         //loop comics
-        for (JsonElement comicJson : comicArrays) {
-            wrapper.addComic(MapperUtility.transformModel((JsonObject) comicJson, Comic.class));
+        for (JsonElement comicElement : comicArrays) {
+            wrapper.addComic(MapperUtility.transformModel((JsonObject) comicElement, Comic.class));
         }
 
         //Return built data

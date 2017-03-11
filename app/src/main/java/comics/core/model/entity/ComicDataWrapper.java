@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Renzo D. Santillán Chavez on 10/03/2017.
  */
 
-public class ComicDataWrapper extends BaseEntity{
+public class ComicDataWrapper extends BaseEntity {
 
     private int code;// The HTTP status code of the returned result.,
     private String status;//(string, optional): A string description of the call status.,
@@ -39,10 +39,17 @@ public class ComicDataWrapper extends BaseEntity{
 
     @Override
     public String toString() {
+
+        String comicsToString = "";
+        for (int c = 0; c < comics.size(); c++) {
+            comicsToString = comicsToString + comics.get(c).toString() + ",";
+        }
+
         return "ComicDataWrapper{" +
                 "code=" + code +
                 ", status='" + status + '\'' +
-                ", comics=" + comics.size() +
-                '}';
+                ", comics=[" + comicsToString +
+                "]" +
+                "}";
     }
 }

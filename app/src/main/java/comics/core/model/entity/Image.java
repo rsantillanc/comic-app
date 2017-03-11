@@ -10,4 +10,12 @@ public class Image extends BaseEntity {
     public String path;
     //The file extension for the image.
     public String extension;
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "path='" + path + '\'' +
+                ", extension='" + extension + '\'' +
+                '}';
+    }
 }

@@ -1,6 +1,8 @@
 package comics.core.model.entity;
 
 
+import java.util.List;
+
 /**
  * Created by Renzo D. Santillán Ch. on 10/03/2017.11:50 PM
  http://rsantillanc.pe.hu/me/
@@ -12,7 +14,8 @@ public class Comic extends BaseEntity {
     private String description;
     private float price;
     private long date;
-    private Image image;
+    private List<Image> images;
+    private Image thumbnail;
 
     public int getId() {
         return id;
@@ -54,11 +57,32 @@ public class Comic extends BaseEntity {
         this.date = date;
     }
 
-    public Image getImage() {
-        return image;
+    public Image getThumbnail() {
+        return thumbnail;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setThumbnail(Image thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
+    @Override
+    public String toString() {
+        return "Comic{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", date=" + date +
+                ", images=" + images.size() +
+                ", thumbnail=" + thumbnail.toString() +
+                '}';
     }
 }
