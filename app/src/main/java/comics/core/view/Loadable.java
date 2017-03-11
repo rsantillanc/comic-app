@@ -1,8 +1,6 @@
-package comics._utility;
+package comics.core.view;
 
 import android.support.annotation.StringRes;
-
-import comics.core.view.View;
 
 /**
  * Created by Renzo D. Santillán Chavez on 09/03/2017.
@@ -11,7 +9,7 @@ import comics.core.view.View;
 public interface Loadable extends View{
     boolean isThereInternet();
 
-    void showInternetErrorMessage(@StringRes int noInternetResId);
+    void showNetworkErrorMessage(@StringRes int noInternetResId);
 
     void showLoader(boolean isLoading);
 

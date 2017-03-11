@@ -1,5 +1,7 @@
 package comics.core.model.entity;
 
+import comics._utility.C;
+
 /**
  * Created by Renzo D. Santillán Ch. on 10/03/2017.11:48 PM
  * http://rsantillanc.pe.hu/me/
@@ -17,5 +19,9 @@ public class Image extends BaseEntity {
                 "path='" + path + '\'' +
                 ", extension='" + extension + '\'' +
                 '}';
+    }
+
+    public String getCompleteUrl() {
+        return path + C.DOT + extension;
     }
 }

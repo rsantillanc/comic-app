@@ -1,4 +1,4 @@
-package comics._utility;
+package comics.core.model.manager;
 
 /**
  * Created by Renzo D. Santillán Ch. on 20/02/2017.12:39 AM
@@ -9,6 +9,6 @@ package comics._utility;
  * Generic callback for network petitions or any other
  * @param <T>
  */
-public interface Callback<T> {
+public interface ComicCallback<T> {
     void done(T result);
 }

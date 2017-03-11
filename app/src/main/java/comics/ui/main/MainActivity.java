@@ -4,16 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import butterknife.BindView;
+import comics._utility.NetworkUtility;
 import comics.core.presenter.MainPresenter;
 import comics.core.view.MainContract;
 import comics.ui.BaseActivity;
+import comics.ui.custom.widget.ItemOffsetDecoration;
 import pe.nextdots.comics.R;
 
 public class MainActivity extends BaseActivity implements MainContract.MainView {
@@ -59,11 +61,16 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.main_action_refresh:
-                refreshComicList();
+                loadComics();
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void loadComics() {
+        if (isThereInternet())
+            presenter.onGetComics(30);
     }
 
 
@@ -74,30 +81,40 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
     }
 
     private void setupRecyclerView() {
-        comicRecyclerV.setLayoutManager(new StaggeredGridLayoutManager(0, StaggeredGridLayoutManager.VERTICAL));
-        comicRecyclerV.setHasFixedSize(false);
-        comicRecyclerV.addItemDecoration(new DividerItemDecoration(context(),DividerItemDecoration.VERTICAL));
+        //comicRecyclerV.setLayoutManager(new LinearLayoutManager(context(), LinearLayoutManager.VERTICAL,false));
+        comicRecyclerV.addItemDecoration(new ItemOffsetDecoration(context(), R.dimen.item_decoration));
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(
+                2, //number of grid columns
+                GridLayoutManager.VERTICAL);
+
+        //Sets the gap handling strategy for StaggeredGridLayoutManager
+        staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+        comicRecyclerV.setLayoutManager(staggeredGridLayoutManager);
     }
 
+
     @Override
-    public void refreshComicList() {
-        showToast("Loading comics...");
-        presenter.onGetComics(30);
+    public RecyclerView getComicRecyclerV() {
+        return this.comicRecyclerV;
     }
 
     @Override
     public boolean isThereInternet() {
-        return false;
+        if (!NetworkUtility.isThereInternetConnection(this)) {
+            showNetworkErrorMessage(R.string.error_no_internet);
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public void showInternetErrorMessage(@StringRes int noInternetResId) {
-
+    public void showNetworkErrorMessage(@StringRes int resId) {
+        showSnack(comicRecyclerV, resId);
     }
 
     @Override
     public void showLoader(boolean isLoading) {
-
+        showToast(isLoading ? "Loading..." : "completed!");
     }
 
     @Override
@@ -124,10 +141,11 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
     public void setupUiElements() {
         //Enabled instance for all views
         bindActivity(this);
+        setupRecyclerView();
     }
 
     @Override
     public void finishActivity() {
-
+        this.finish();
     }
 }

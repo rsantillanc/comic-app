@@ -1,7 +1,13 @@
 package comics.core.model.manager;
 
+import android.support.annotation.IntDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 import comics._utility.SecureUtility;
 import comics.core.model.rest.Connection;
+import comics.core.model.rest.IRest;
 import comics.core.model.rest.MarvelApi;
 import comics.core.model.rest.RestAdapter;
 import pe.nextdots.comics.BuildConfig;
@@ -11,7 +17,13 @@ import pe.nextdots.comics.BuildConfig;
  * http://rsantillanc.pe.hu/me/
  */
 
-abstract class BaseDataManager {
+public abstract class BaseDataManager implements IRest{
+
+    protected static final int COMIC = 100;
+
+    @IntDef({COMIC})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Type {}
 
     MarvelApi api;
     String apiKey = BuildConfig.API_KEY;
