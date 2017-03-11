@@ -1,15 +1,18 @@
 package comics.core.model.entity;
 
+
 /**
- * Created by Renzo D. Santillán Chavez on 10/03/2017.
+ * Created by Renzo D. Santillán Ch. on 10/03/2017.11:50 PM
+ http://rsantillanc.pe.hu/me/
  */
 
-public class Comic extends BaseEntity{
+public class Comic extends BaseEntity {
     private int id;
     private String title;
     private String description;
     private float price;
     private long date;
+    private Image image;
 
     public int getId() {
         return id;
@@ -49,5 +52,13 @@ public class Comic extends BaseEntity{
 
     public void setDate(long date) {
         this.date = date;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

@@ -8,7 +8,9 @@ import comics._utility.Loadable;
 
 public interface MainContract {
     interface ViewAction {
-        void onGetComics();
+        void start();
+
+        void onGetComics(int limit);
     }
 
     interface MainView extends Loadable {

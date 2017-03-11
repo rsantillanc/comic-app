@@ -1,9 +1,18 @@
 package comics.core.model.manager;
 
+import android.util.Log;
+
+import java.io.IOException;
+
+import comics._utility.C;
+import comics._utility.SecureUtility;
 import comics.core.model.deserialize.ComicDeserializer;
 import comics.core.model.entity.ComicDataWrapper;
 import comics.core.model.rest.Connection;
 import comics.core.model.rest.RestAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Renzo D. Santillán Ch. on 10/03/2017.01:14 AM
@@ -11,9 +20,19 @@ import comics.core.model.rest.RestAdapter;
  */
 
 public class ComicDataManager extends BaseDataManager {
+    private int limit;
 
-    public ComicDataManager() {
+    private ComicDataManager() {
         createRestApi();
+    }
+
+    public static ComicDataManager newInstance() {
+        return new ComicDataManager();
+    }
+
+
+    public void addLimit(int _limit) {
+        this.limit = _limit;
     }
 
     @Override
@@ -29,5 +48,38 @@ public class ComicDataManager extends BaseDataManager {
 
     private void getComics() {
 
+        api.getComics(limit, apiKey, timestamp, SecureUtility.MakeMd5Hash(timestamp)).enqueue(new Callback<ComicDataWrapper>() {
+            @Override
+            public void onResponse(Call<ComicDataWrapper> call, Response<ComicDataWrapper> response) {
+                if (response.isSuccessful()) {
+                    Log.d(C.Tag.REST, "onResponse " + response.body().toString());
+                    return;
+                }
+
+                try {
+                    Log.d(C.Tag.REST, "onResponse error " + response.errorBody().string());
+                } catch (IOException e) {
+                    Log.d(C.Tag.REST, "onResponse error exception " + e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ComicDataWrapper> call, Throwable t) {
+                Log.d(C.Tag.REST, "onFailure " + t.getMessage());
+            }
+        });
+
+//        api.getComics().enqueue(new Callback<ComicDataWrapper>() {
+//            @Override
+//            public void onResponse(Call<ComicDataWrapper> call, Response<ComicDataWrapper> response) {
+//                Log.d(C.Tag.REST, "onResponse " + response.body().toString());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ComicDataWrapper> call, Throwable t) {
+//                Log.d(C.Tag.REST, "onFailure " + t.getMessage());
+//            }
+//        });
     }
 }

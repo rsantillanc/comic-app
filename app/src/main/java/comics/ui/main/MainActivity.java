@@ -70,6 +70,7 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
     private void createPresenter() {
         presenter = new MainPresenter();
         presenter.attachView(this);
+        presenter.start();
     }
 
     private void setupRecyclerView() {
@@ -80,7 +81,8 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
 
     @Override
     public void refreshComicList() {
-        showToast("Loading marvel comics!");
+        showToast("Loading comics...");
+        presenter.onGetComics(30);
     }
 
     @Override

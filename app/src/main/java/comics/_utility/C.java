@@ -7,4 +7,7 @@ package comics._utility;
 
 public class C {
 
+    public class Tag {
+        public static final String REST = "#Rest";
+    }
 }

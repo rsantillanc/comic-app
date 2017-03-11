@@ -36,4 +36,13 @@ public class ComicDataWrapper extends BaseEntity{
     public void addComic(Comic comic) {
         comics.add(comic);
     }
+
+    @Override
+    public String toString() {
+        return "ComicDataWrapper{" +
+                "code=" + code +
+                ", status='" + status + '\'' +
+                ", comics=" + comics.size() +
+                '}';
+    }
 }
