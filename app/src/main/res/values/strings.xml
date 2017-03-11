@@ -7,4 +7,5 @@
     <string name="error_server_connect">We can\'t connect with Marvel\'s server.;</string>
     <string name="font_avengeance">avengeance</string>
     <string name="font_true_crimes">true_crimes</string>
+    <string name="unavailable">Unavailable price</string>
 </resources>

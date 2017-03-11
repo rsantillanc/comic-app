@@ -5,14 +5,14 @@ import java.util.List;
 
 /**
  * Created by Renzo D. Santillán Ch. on 10/03/2017.11:50 PM
- http://rsantillanc.pe.hu/me/
+ * http://rsantillanc.pe.hu/me/
  */
 
 public class Comic extends BaseEntity {
     private int id;
     private String title;
     private String description;
-    private float price;
+    private List<Price> prices;
     private long date;
     private List<Image> images;
     private Image thumbnail;
@@ -39,14 +39,6 @@ public class Comic extends BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
     }
 
     public long getDate() {
@@ -79,10 +71,25 @@ public class Comic extends BaseEntity {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", price=" + price +
+                ", prices=" + prices.size() +
                 ", date=" + date +
                 ", images=" + images.size() +
                 ", thumbnail=" + thumbnail.toString() +
                 '}';
+    }
+
+    public List<Price> getPrices() {
+        return prices;
+    }
+
+    public float getTotalPrice() {
+        float total = 0;
+        for (Price price : getPrices())
+            total = total + price.price;
+        return total;
+    }
+
+    public void setPrices(List<Price> prices) {
+        this.prices = prices;
     }
 }
