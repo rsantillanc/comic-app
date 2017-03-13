@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import comics._utility.C;
 import comics.core.model.entity.Comic;
@@ -25,11 +26,10 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
     private ComicDataManager comicManager;
     private ComicAdapter comicAdapter;
     private final ArrayList<Comic> comicList = new ArrayList<>();
+    private final ViewCallback<Comic> onFavouriteClick = this::saveComicAsFavourite;
 
     public MainPresenter() {
     }
-
-    private final ViewCallback<Comic> onFavouriteClick = comic -> saveComicAsFavourite(comic);
 
 
 
@@ -69,9 +69,12 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
         if (object instanceof ComicDataWrapper) {
             comicList.clear();
             comicList.addAll(((ComicDataWrapper) object).getComics());
-        } else {
+        } else if (object instanceof List){
             comicList.clear();
             comicList.addAll((Collection<? extends Comic>) object);
+        } else {
+            //item change
+//            comicAdapter.notifyItemChanged();
         }
         notifyComicAdapter();
     }

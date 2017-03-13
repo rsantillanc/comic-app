@@ -19,6 +19,7 @@ import comics.core.model.entity.Price;
 import comics.core.view.ViewCallback;
 import comics.ui.custom.loader.ImageLoader;
 import comics.ui.custom.widget.MarvelTextView;
+import io.realm.Realm;
 import pe.nextdots.comics.R;
 
 /**
@@ -133,8 +134,22 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> 
         }
 
         private void saveAsFavourite(View view) {
-            onFavouriteClick.success(comicList.get(getAdapterPosition()));
+            saveChangesComic(comicList.get(getAdapterPosition()));
             notifyItemChanged(getAdapterPosition());
+        }
+
+        void saveChangesComic(Comic comic) {
+            Realm realm = Realm.getDefaultInstance();
+            try {
+                realm.beginTransaction();
+                comic.setFavourite(!comic.isFavourite());
+                realm.copyToRealmOrUpdate(comic);
+                realm.commitTransaction();
+            } catch (Exception ex) {
+                realm.cancelTransaction();
+            } finally {
+                realm.close();
+            }
         }
     }
 }

@@ -7,7 +7,6 @@ import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import comics._utility.C;
-import comics._utility.MapperUtility;
 import comics.core.model.deserialize.ComicDeserializer;
 import comics.core.model.entity.Comic;
 import comics.core.model.entity.ComicDataWrapper;
@@ -65,11 +64,19 @@ public class ComicDataManager extends BaseDataManager {
 
     public void saveChangesComic(Comic comic) {
         Realm realm = Realm.getDefaultInstance();
-        realm.executeTransaction(realm1 ->
-                realm1.createOrUpdateObjectFromJson(
-                        Comic.class,
-                        MapperUtility.transformModelToJson(comic))
-        );
+        try {
+            realm.beginTransaction();
+            realm.copyToRealmOrUpdate(comic);
+            realm.commitTransaction();
+//            operation.onDone(comic);
+        } catch (Exception ex) {
+            realm.cancelTransaction();
+            operation.onError(ex.getMessage());
+        } finally {
+            realm.close();
+            operation.onComplete();
+        }
+
     }
 
     private void getFavouriteComics() {
