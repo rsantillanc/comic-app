@@ -1,5 +1,7 @@
 package comics.ui.main;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import java.util.Locale;
 import comics._utility.C;
 import comics.core.model.entity.Comic;
 import comics.core.model.entity.Price;
+import comics.core.view.ViewCallback;
 import comics.ui.custom.loader.ImageLoader;
 import comics.ui.custom.widget.MarvelTextView;
 import pe.nextdots.comics.R;
@@ -23,21 +26,26 @@ import pe.nextdots.comics.R;
  * http://rsantillanc.pe.hu/me/
  */
 
+
 public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> implements Filterable {
 
     private ArrayList<Comic> comicList = new ArrayList<>();
     private ArrayList<Comic> toFilterComicList = new ArrayList<>();
     private final ImageLoader imageLoader;
+    private Context context;
+    private ViewCallback<Comic> onFavouriteClick;
 
     public ComicAdapter(ArrayList<Comic> _comicList, ImageLoader imageLoader) {
-        this.comicList.addAll(_comicList);
-        this.toFilterComicList.addAll(this.comicList);
         this.imageLoader = imageLoader;
+        this.comicList = _comicList;
+        this.toFilterComicList.addAll(this.comicList);
     }
+
 
     @Override
     public ComicViewH onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ComicViewH(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_comic, parent, false));
+        this.context = parent.getContext();
+        return new ComicViewH(LayoutInflater.from(context).inflate(R.layout.item_comic, parent, false));
     }
 
     @Override
@@ -45,6 +53,14 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> 
         setComicTitle(holder, position);
         setComicPrice(holder, position);
         setComicPhoto(holder, position);
+        setComicFavourite(holder, position);
+    }
+
+    private void setComicFavourite(ComicViewH holder, int position) {
+        boolean isFavourite = comicList.get(position).isFavourite();
+        holder.favouriteImageV.setImageDrawable(ContextCompat.getDrawable(context, isFavourite ?
+                R.drawable.ic_favorite_checked :
+                R.drawable.ic_favorite_unchecked));
     }
 
     private void setComicPhoto(ComicViewH holder, int position) {
@@ -67,6 +83,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> 
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Filter getFilter() {
         return new Filter() {
             @Override
@@ -88,14 +105,20 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> 
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                comicList = ((ArrayList<Comic>) filterResults.values);
+                comicList = (ArrayList<Comic>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
     }
 
-    static class ComicViewH extends RecyclerView.ViewHolder {
+    public void setOnFavouriteClick(ViewCallback<Comic> onFavouriteClick) {
+        this.onFavouriteClick = onFavouriteClick;
+    }
 
+    // View Holder pattern
+    class ComicViewH extends RecyclerView.ViewHolder {
+
+        private ImageView favouriteImageV;
         private ImageView photoImageV;
         private MarvelTextView titleMarvelT;
         private MarvelTextView priceMarvelT;
@@ -105,6 +128,13 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> 
             titleMarvelT = (MarvelTextView) itemView.findViewById(R.id.title_marvel_text_v);
             priceMarvelT = (MarvelTextView) itemView.findViewById(R.id.price_marvel_text_v);
             photoImageV = (ImageView) itemView.findViewById(R.id.photo_image_v);
+            favouriteImageV = (ImageView) itemView.findViewById(R.id.is_favourite_image_v);
+            favouriteImageV.setOnClickListener(this::saveAsFavourite);
+        }
+
+        private void saveAsFavourite(View view) {
+            onFavouriteClick.success(comicList.get(getAdapterPosition()));
+            notifyItemChanged(getAdapterPosition());
         }
     }
 }

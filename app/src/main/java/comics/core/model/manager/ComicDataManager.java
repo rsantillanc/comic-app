@@ -4,13 +4,18 @@ import android.util.Log;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 
 import comics._utility.C;
+import comics._utility.MapperUtility;
 import comics.core.model.deserialize.ComicDeserializer;
+import comics.core.model.entity.Comic;
 import comics.core.model.entity.ComicDataWrapper;
 import comics.core.model.rest.Connection;
 import comics.core.model.rest.RestAdapter;
 import comics.core.presenter.Operation;
+import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,6 +55,40 @@ public class ComicDataManager extends BaseDataManager {
 
     public void getComicsFromServer() {
         getComics();
+    }
+
+    //Only favourites.
+    public void getComicsFromDatabase() {
+        getFavouriteComics();
+    }
+
+
+    public void saveChangesComic(Comic comic) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(realm1 ->
+                realm1.createOrUpdateObjectFromJson(
+                        Comic.class,
+                        MapperUtility.transformModelToJson(comic))
+        );
+    }
+
+    private void getFavouriteComics() {
+        ArrayList<Comic> comics = new ArrayList<>();
+
+        RealmResults<Comic> asyncResults = Realm.getDefaultInstance()
+                .where(Comic.class)
+                .equalTo(Comic.IS_FAVOURITE, true)
+                .findAll();
+
+        // Results are now available
+        if (asyncResults.isLoaded()) {
+            comics.addAll(asyncResults);
+            operation.onDone(comics);
+        } else
+            operation.onError("You don't have favourite comics yet.");
+
+        //Always
+        operation.onComplete();
     }
 
     private void getComics() {

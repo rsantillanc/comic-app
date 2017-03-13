@@ -76,9 +76,22 @@ public class MainActivity extends BaseActivity implements MainContract.MainView,
             case R.id.main_action_refresh:
                 loadComics();
                 break;
+            case R.id.main_action_favourite:
+                loadFavouriteComics(item);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void loadFavouriteComics(MenuItem menuItem) {
+        if (isThereInternet()) {
+            menuItem.setChecked(!menuItem.isChecked());
+            if (menuItem.isChecked())
+                presenter.onGetFavouriteComics();
+            else
+                presenter.onGetComics();
+        }
     }
 
     private void loadComics() {

@@ -14,5 +14,6 @@ public class C {
     public class Tag {
         public static final String REST = "#Rest";
         public static final String MAIN = "#Main";
+        public static final String MODEL = "#Model";
     }
 }

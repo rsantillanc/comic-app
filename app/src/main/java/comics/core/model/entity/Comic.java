@@ -3,19 +3,31 @@ package comics.core.model.entity;
 
 import java.util.List;
 
+import comics._utility.MapperUtility;
+import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Renzo D. Santillán Ch. on 10/03/2017.11:50 PM
  * http://rsantillanc.pe.hu/me/
  */
 
-public class Comic extends BaseEntity {
-    private int id;
+public class Comic extends RealmObject {
+
+    public static final String IS_FAVOURITE = "isFavourite";
+
+    @PrimaryKey
+    private Integer id;
     private String title;
     private String description;
-    private List<Price> prices;
+    private RealmList<Price> prices;
     private long date;
-    private List<Image> images;
+    private RealmList<Image> images;
     private Image thumbnail;
+    private boolean isFavourite = false;
+
 
     public int getId() {
         return id;
@@ -61,9 +73,6 @@ public class Comic extends BaseEntity {
         return images;
     }
 
-    public void setImages(List<Image> images) {
-        this.images = images;
-    }
 
     @Override
     public String toString() {
@@ -89,7 +98,37 @@ public class Comic extends BaseEntity {
         return total;
     }
 
-    public void setPrices(List<Price> prices) {
+    public boolean isFavourite() {
+        return isFavourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        isFavourite = favourite;
+    }
+
+    public void beginTransaction() {
+        Realm.getDefaultInstance().beginTransaction();
+    }
+
+    public void commitTransaction() {
+        Realm.getDefaultInstance().commitTransaction();
+    }
+
+    public void setPrices(RealmList<Price> prices) {
         this.prices = prices;
     }
+
+    public void setImages(RealmList<Image> images) {
+        this.images = images;
+    }
+
+
+    public void autoSave() {
+        save(Realm.getDefaultInstance());
+    }
+
+    private void save(Realm realm) {
+        realm.createOrUpdateObjectFromJson(Comic.class, MapperUtility.transformModelToJson(Comic.this));
+    }
+
 }

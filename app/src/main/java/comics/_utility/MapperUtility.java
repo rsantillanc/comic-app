@@ -7,11 +7,15 @@ import com.google.gson.JsonObject;
 
 /**
  * Created by Renzo D. Santillán Ch. on 23/02/2017.12:45 AM
- http://rsantillanc.pe.hu/me/
+ * http://rsantillanc.pe.hu/me/
  */
 public class MapperUtility {
 
     public static <T> T transformModel(@NonNull final JsonObject body, @NonNull final Class<T> classModel) {
         return new Gson().fromJson(body, classModel);
+    }
+
+    public static String transformModelToJson(Object model) {
+       return new Gson().toJson(model);
     }
 }

@@ -12,7 +12,10 @@ public interface MainContract {
 
         void onGetComics();
 
+        void onGetFavouriteComics();
+
         void filterComicTextQuery(String query);
+
     }
 
     interface MainView extends Loadable {
