@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -21,13 +23,15 @@ import pe.nextdots.comics.R;
  * http://rsantillanc.pe.hu/me/
  */
 
-public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> {
+public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> implements Filterable {
 
-    private final ArrayList<Comic> comicList = new ArrayList<>();
+    private ArrayList<Comic> comicList = new ArrayList<>();
+    private ArrayList<Comic> toFilterComicList = new ArrayList<>();
     private final ImageLoader imageLoader;
 
     public ComicAdapter(ArrayList<Comic> _comicList, ImageLoader imageLoader) {
         this.comicList.addAll(_comicList);
+        this.toFilterComicList.addAll(this.comicList);
         this.imageLoader = imageLoader;
     }
 
@@ -54,12 +58,40 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> 
     private void setComicPrice(ComicViewH holder, int position) {
         Price price = comicList.get(position).getPrices().get(0);
         if (price.price > 0)
-            holder.priceMarvelT.setText(String.format(Locale.getDefault(), "%s%s%S", "Price: ", price.price, C.USD));
+            holder.priceMarvelT.setText(String.format(Locale.getDefault(), "%s%s", price.price, C.USD));
     }
 
     @Override
     public int getItemCount() {
         return comicList.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence query) {
+                FilterResults results = new FilterResults();
+                if (query == null || query.length() == 0) {
+                    results.count = toFilterComicList.size();
+                    results.values = toFilterComicList;
+                } else {
+                    ArrayList<Comic> filterList = new ArrayList<>();
+                    for (Comic comic : toFilterComicList)
+                        if (comic.getTitle().toLowerCase().contains(query))
+                            filterList.add(comic);
+                    results.count = filterList.size();
+                    results.values = filterList;
+                }
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                comicList = ((ArrayList<Comic>) filterResults.values);
+                notifyDataSetChanged();
+            }
+        };
     }
 
     static class ComicViewH extends RecyclerView.ViewHolder {

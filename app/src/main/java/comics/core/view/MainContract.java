@@ -11,6 +11,8 @@ public interface MainContract {
         void start();
 
         void onGetComics();
+
+        void filterComicTextQuery(String query);
     }
 
     interface MainView extends Loadable {

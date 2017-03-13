@@ -1,11 +1,13 @@
 package comics.ui.main;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +20,7 @@ import comics.ui.BaseActivity;
 import comics.ui.custom.widget.ItemOffsetDecoration;
 import pe.nextdots.comics.R;
 
-public class MainActivity extends BaseActivity implements MainContract.MainView {
+public class MainActivity extends BaseActivity implements MainContract.MainView, SearchView.OnQueryTextListener {
 
     @BindView(R.id.recycler_view)
     RecyclerView comicRecyclerV;
@@ -57,6 +59,11 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.main_action_search).getActionView();
+        searchView.setQueryHint(getString(R.string.hint_search));
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(this);
         return true;
     }
 
@@ -153,5 +160,17 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
     @Override
     public void finishActivity() {
         this.finish();
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String _query) {
+        presenter.filterComicTextQuery(_query);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String _query) {
+        presenter.filterComicTextQuery(_query);
+        return true;
     }
 }

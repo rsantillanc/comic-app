@@ -14,6 +14,7 @@
         android:contentDescription="@string/app_name"
         android:scaleType="fitXY"
         android:src="@drawable/marvel_default" />
+
     <!--Filter color-->
     <View
         android:layout_width="match_parent"
@@ -37,25 +38,23 @@
         android:layout_margin="4dp"
         android:textColor="@android:color/white"
         android:textSize="20sp"
-        app:customFont="avengeance" />
+        app:customFont="true_crimes" />
 
      <!--Price-->
     <comics.ui.custom.widget.MarvelTextView
         android:id="@+id/price_marvel_text_v"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
+        android:layout_gravity="bottom|end"
         android:gravity="center"
         android:shadowColor="@android:color/white"
         android:shadowDx="2"
         android:shadowDy="2"
         android:text="@string/unavailable"
         android:textColor="@android:color/white"
-        android:textSize="16sp"
+        android:textSize="14sp"
+        android:alpha="0.8"
         android:layout_margin="8dp"
         app:customFont="true_crimes" />
-
-
-
 
 </android.support.v7.widget.CardView>

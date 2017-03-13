@@ -2,17 +2,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="pe.nextdots.comics.comics.MainActivity">
+
     <item
-        android:id="@+id/main_action_refresh"
-        android:orderInCategory="100"
-        android:title="@string/action_refresh"
-        android:icon="@drawable/ic_refresh"
+        android:id="@+id/main_action_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search_title"
+        app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/main_action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:id="@+id/main_action_refresh"
         android:icon="@drawable/ic_refresh"
+        android:orderInCategory="100"
+        android:title="@string/action_refresh"
         app:showAsAction="never" />
+
+    <!--<item-->
+        <!--android:id="@+id/main_action_settings"-->
+        <!--android:icon="@drawable/ic_refresh"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action_settings"-->
+        <!--app:showAsAction="never" />-->
 </menu>

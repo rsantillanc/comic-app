@@ -8,4 +8,6 @@
     <string name="font_avengeance">avengeance</string>
     <string name="font_true_crimes">true_crimes</string>
     <string name="unavailable">Unavailable price</string>
+    <string name="search_title">Search</string>
+    <string name="hint_search">Search comics</string>
 </resources>

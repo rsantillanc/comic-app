@@ -5,4 +5,5 @@
     <color name="colorAccent">#607D8B</color>
     <color name="filter_black">#d8000000</color>
     <color name="filter_red">#5aff0000</color>
+    <color name="yellow">#FFFF00</color>
 </resources>

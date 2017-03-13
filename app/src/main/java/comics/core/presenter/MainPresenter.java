@@ -1,7 +1,10 @@
 package comics.core.presenter;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
+import comics._utility.C;
 import comics.core.model.entity.Comic;
 import comics.core.model.entity.ComicDataWrapper;
 import comics.core.model.manager.ComicDataManager;
@@ -37,6 +40,11 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
         comicManager.getComicsFromServer();
     }
 
+    @Override
+    public void filterComicTextQuery(String query) {
+        comicAdapter.getFilter().filter(query);
+    }
+
     private int generateRandomLimit() {
         final int MAX = 100;
         final int MIN = 30;
@@ -53,6 +61,7 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
     }
 
     private void notifyComicAdapter() {
+        Log.d(C.Tag.MAIN, "Total comics: " + comicList.size());
         if (comicAdapter == null) {
             comicAdapter = new ComicAdapter(comicList, new GlideLoader(mvpView.context(), R.drawable.marvel_default));
             mvpView.getComicRecyclerV().setAdapter(comicAdapter);
@@ -81,4 +90,6 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
     public void onComplete() {
         mvpView.showLoader(false);
     }
+
+
 }
