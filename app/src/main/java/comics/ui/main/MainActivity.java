@@ -151,12 +151,12 @@ public class MainActivity extends BaseActivity implements MainContract.MainView,
 
     @Override
     public void tryAgain() {
-
+        presenter.onGetComics();
     }
 
     @Override
     public void showMessage(String message) {
-
+        showSnack(comicRecyclerV, message);
     }
 
     @Override
