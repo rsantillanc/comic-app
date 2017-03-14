@@ -16,6 +16,7 @@ public interface MainContract {
 
         void filterComicTextQuery(String query);
 
+
     }
 
     interface MainView extends Loadable {

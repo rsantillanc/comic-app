@@ -32,7 +32,6 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
     }
 
 
-
     @Override
     public void start() {
         if (comicManager == null)
@@ -49,6 +48,7 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
     @Override
     public void onGetFavouriteComics() {
         mvpView.showLoader(true);
+        comicAdapter.setAutoSave(false);
         comicManager.getComicsFromDatabase();
     }
 
@@ -69,12 +69,15 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
         if (object instanceof ComicDataWrapper) {
             comicList.clear();
             comicList.addAll(((ComicDataWrapper) object).getComics());
-        } else if (object instanceof List){
+        } else if (object instanceof List) {
             comicList.clear();
             comicList.addAll((Collection<? extends Comic>) object);
         } else {
-            //item change
-//            comicAdapter.notifyItemChanged();
+            int position = comicAdapter.getCurrentPosition();
+            comicList.remove(position);
+            comicList.add(position, (Comic) object);
+            comicAdapter.notifyItemChanged(position);
+            return;
         }
         notifyComicAdapter();
     }
@@ -84,11 +87,14 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
         if (comicAdapter == null) {
             comicAdapter = new ComicAdapter(comicList, new GlideLoader(mvpView.context(), R.drawable.marvel_default));
             comicAdapter.setOnFavouriteClick(onFavouriteClick);
+
             mvpView.getComicRecyclerV().setAdapter(comicAdapter);
             comicAdapter.notifyDataSetChanged();
             return;
         }
         comicAdapter.notifyDataSetChanged();
+        comicAdapter.setAutoSave(false);
+
     }
 
     private void saveComicAsFavourite(Comic comic) {
@@ -114,7 +120,6 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
     public void onComplete() {
         mvpView.showLoader(false);
     }
-
 
 
 }

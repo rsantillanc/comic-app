@@ -66,9 +66,10 @@ public class ComicDataManager extends BaseDataManager {
         Realm realm = Realm.getDefaultInstance();
         try {
             realm.beginTransaction();
+            comic.setFavourite(!comic.isFavourite());
             realm.copyToRealmOrUpdate(comic);
             realm.commitTransaction();
-//            operation.onDone(comic);
+            operation.onDone(comic);
         } catch (Exception ex) {
             realm.cancelTransaction();
             operation.onError(ex.getMessage());

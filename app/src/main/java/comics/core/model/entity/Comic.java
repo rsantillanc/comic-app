@@ -83,7 +83,8 @@ public class Comic extends RealmObject {
                 ", prices=" + prices.size() +
                 ", date=" + date +
                 ", images=" + images.size() +
-                ", thumbnail=" + thumbnail.toString() +
+                ", thumbnail=" + thumbnail.getCompleteUrl() +
+                ", isFavourite=" + isFavourite +
                 '}';
     }
 
@@ -128,7 +129,7 @@ public class Comic extends RealmObject {
     }
 
     private void save(Realm realm) {
-        realm.createOrUpdateObjectFromJson(Comic.class, MapperUtility.transformModelToJson(Comic.this));
+        realm.executeTransaction(realm1 -> realm1.createOrUpdateObjectFromJson(Comic.class, MapperUtility.transformModelToJson(Comic.this)));
     }
 
 }

@@ -19,7 +19,6 @@ import comics.core.model.entity.Price;
 import comics.core.view.ViewCallback;
 import comics.ui.custom.loader.ImageLoader;
 import comics.ui.custom.widget.MarvelTextView;
-import io.realm.Realm;
 import pe.nextdots.comics.R;
 
 /**
@@ -35,6 +34,8 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> 
     private final ImageLoader imageLoader;
     private Context context;
     private ViewCallback<Comic> onFavouriteClick;
+    private int currentPosition;
+    private boolean isAutoSave = true;
 
     public ComicAdapter(ArrayList<Comic> _comicList, ImageLoader imageLoader) {
         this.imageLoader = imageLoader;
@@ -116,6 +117,22 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> 
         this.onFavouriteClick = onFavouriteClick;
     }
 
+    public int getCurrentPosition() {
+        return currentPosition;
+    }
+
+    public void setCurrentPosition(int currentPosition) {
+        this.currentPosition = currentPosition;
+    }
+
+    public boolean isAutoSave() {
+        return isAutoSave;
+    }
+
+    public void setAutoSave(boolean autoSave) {
+        isAutoSave = autoSave;
+    }
+
     // View Holder pattern
     class ComicViewH extends RecyclerView.ViewHolder {
 
@@ -134,22 +151,19 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> 
         }
 
         private void saveAsFavourite(View view) {
-            saveChangesComic(comicList.get(getAdapterPosition()));
-            notifyItemChanged(getAdapterPosition());
+            Comic comic = comicList.get(getAdapterPosition());
+            setCurrentPosition(getAdapterPosition());
+
+            if (isAutoSave()) {
+                comic.setFavourite(!comic.isFavourite());
+                comic.autoSave();
+                notifyItemChanged(getCurrentPosition());
+            } else
+                saveChangesComic(comic);
         }
 
         void saveChangesComic(Comic comic) {
-            Realm realm = Realm.getDefaultInstance();
-            try {
-                realm.beginTransaction();
-                comic.setFavourite(!comic.isFavourite());
-                realm.copyToRealmOrUpdate(comic);
-                realm.commitTransaction();
-            } catch (Exception ex) {
-                realm.cancelTransaction();
-            } finally {
-                realm.close();
-            }
+            onFavouriteClick.done(comic);
         }
     }
 }
