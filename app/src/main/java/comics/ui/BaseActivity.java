@@ -57,7 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             ActionBar.LayoutParams params = new ActionBar.LayoutParams(
                     ActionBar.LayoutParams.MATCH_PARENT,
                     ActionBar.LayoutParams.MATCH_PARENT);
-            toolbar.addView(customView,params);
+            toolbar.addView(customView, params);
         }
         setSupportActionBar(toolbar);
     }

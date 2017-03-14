@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -89,14 +91,14 @@ public class MainActivity extends BaseActivity implements MainContract.MainView,
             menuItem.setChecked(!menuItem.isChecked());
             if (menuItem.isChecked())
                 presenter.onGetFavouriteComics();
-            else
-                presenter.onGetComics();
+            else presenter.onGetComics();
         }
     }
 
     private void loadComics() {
         if (isThereInternet())
             presenter.onGetComics();
+        else presenter.onGetFavouriteComics();
     }
 
 
@@ -135,7 +137,11 @@ public class MainActivity extends BaseActivity implements MainContract.MainView,
 
     @Override
     public void showNetworkErrorMessage(@StringRes int resId) {
-        showSnack(comicRecyclerV, resId);
+        Snackbar.make(comicRecyclerV, resId, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.offline, view -> {
+                })
+                .setActionTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                .show();
     }
 
     @Override

@@ -27,6 +27,7 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
     private ComicAdapter comicAdapter;
     private final ArrayList<Comic> comicList = new ArrayList<>();
     private final ViewCallback<Comic> onFavouriteClick = this::saveComicAsFavourite;
+    private boolean isAutoSave = true;
 
     public MainPresenter() {
     }
@@ -43,13 +44,14 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
         mvpView.showLoader(true);
         comicManager.addLimit(generateRandomLimit());
         comicManager.getComicsFromServer();
+        isAutoSave = true;
     }
 
     @Override
     public void onGetFavouriteComics() {
         mvpView.showLoader(true);
-        comicAdapter.setAutoSave(false);
         comicManager.getComicsFromDatabase();
+        isAutoSave = false;
     }
 
     @Override
@@ -93,7 +95,7 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
             return;
         }
         comicAdapter.notifyDataSetChanged();
-        comicAdapter.setAutoSave(false);
+        comicAdapter.setAutoSave(isAutoSave);
 
     }
 

@@ -10,4 +10,5 @@
     <string name="unavailable">Unavailable price</string>
     <string name="search_title">Search</string>
     <string name="hint_search">Search comics</string>
+    <string name="offline">Offline</string>
 </resources>
