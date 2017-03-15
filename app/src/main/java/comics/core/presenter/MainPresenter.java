@@ -51,7 +51,7 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
     public void onGetFavouriteComics() {
         mvpView.showLoader(true);
         comicManager.getComicsFromDatabase();
-        isAutoSave = false;
+        comicAdapter.setAutoSave(false);
     }
 
     @Override
