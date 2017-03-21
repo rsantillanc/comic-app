@@ -1,4 +1,4 @@
-package comics.ui.main;
+package comics.ui.detail;
 
 import android.os.Bundle;
 

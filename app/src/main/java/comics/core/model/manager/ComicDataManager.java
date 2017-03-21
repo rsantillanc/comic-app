@@ -147,7 +147,7 @@ public class ComicDataManager extends BaseDataManager {
             //Can't connect with server.
             operation.onConnectError();
         else
-            //Unknow error
+            //UnKnow error
             operation.onError(exception.getMessage());
 
         //Always notify to hide loader or disabled another view.

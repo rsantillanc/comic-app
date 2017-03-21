@@ -29,12 +29,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="comics.ui.main.DetailActivity"
+            android:name="comics.ui.detail.DetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_detail"
             android:theme="@style/FullscreenTheme" />
         <activity
-            android:name="comics.ui.main.EmptyActivity"
+            android:name="comics.ui.detail.EmptyActivity"
             android:theme="@style/ComicTranslucent" />
     </application>
 

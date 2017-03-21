@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import comics.core.model.entity.Comic;
-import comics.ui.main.EmptyActivity;
+import comics.ui.detail.EmptyActivity;
 
 /**
  * Created by Renzo D. Santillán Chavez on 20/03/2017.

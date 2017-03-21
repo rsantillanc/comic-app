@@ -1,4 +1,4 @@
-package comics.ui.main;
+package comics.ui.detail;
 
 import android.annotation.SuppressLint;
 import android.support.v7.app.ActionBar;
