@@ -16,4 +16,8 @@ public class C {
         public static final String MAIN = "#Main";
         public static final String MODEL = "#Model";
     }
+
+    public class Extra {
+        public static final String COMIC = "C.EXTRA.COMIC";
+    }
 }

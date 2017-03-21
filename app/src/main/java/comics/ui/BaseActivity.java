@@ -50,6 +50,12 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .commit();
     }
 
+    /**
+     * This method can make a single/custom Toolbar.
+     *
+     * @param isCustomView if is false then customView is null.
+     * @param customView {@link View} to inflate a view into ActionBar.
+     */
     protected void createToolbar(boolean isCustomView, View customView) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (isCustomView) {

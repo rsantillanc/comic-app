@@ -100,6 +100,7 @@ public class ComicDataManager extends BaseDataManager {
     }
 
     private void getComics() {
+
         api.getComics(limit, apiKey, timestamp, hash).enqueue(new Callback<ComicDataWrapper>() {
             @Override
             public void onResponse(Call<ComicDataWrapper> call, Response<ComicDataWrapper> response) {
@@ -111,6 +112,11 @@ public class ComicDataManager extends BaseDataManager {
                 onRestFailure(t);
             }
         });
+
+        Log.d(C.Tag.REST, "Params [apikey] :" + apiKey);
+        Log.d(C.Tag.REST, "Params [timestamp] :" + timestamp);
+        Log.d(C.Tag.REST, "Params [hash] :" + hash);
+
     }
 
 
@@ -143,7 +149,6 @@ public class ComicDataManager extends BaseDataManager {
         else
             //Unknow error
             operation.onError(exception.getMessage());
-
 
         //Always notify to hide loader or disabled another view.
         operation.onComplete();

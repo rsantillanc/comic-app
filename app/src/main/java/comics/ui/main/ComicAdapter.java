@@ -1,8 +1,10 @@
 package comics.ui.main;
 
 import android.content.Context;
+import android.support.annotation.IntDef;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,8 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -29,11 +33,21 @@ import pe.nextdots.comics.R;
 
 public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> implements Filterable {
 
-    private ArrayList<Comic> comicList = new ArrayList<>();
+    public static final int ITEM = 100;
+    public static final int FAVORITE = 101;
+
+    @IntDef({ITEM, FAVORITE})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface Action {
+    }
+
     private ArrayList<Comic> toFilterComicList = new ArrayList<>();
+    private ArrayList<Comic> comicList = new ArrayList<>();
+
+    private ViewCallback<Pair<Integer, Comic>> onFavouriteClick;
     private final ImageLoader imageLoader;
+
     private Context context;
-    private ViewCallback<Comic> onFavouriteClick;
     private int currentPosition;
     private boolean isAutoSave = true;
 
@@ -113,7 +127,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> 
         };
     }
 
-    public void setOnFavouriteClick(ViewCallback<Comic> onFavouriteClick) {
+    public void setOnFavouriteClick(ViewCallback<Pair<Integer, Comic>> onFavouriteClick) {
         this.onFavouriteClick = onFavouriteClick;
     }
 
@@ -143,11 +157,16 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> 
 
         ComicViewH(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this::onComicClick);
             titleMarvelT = (MarvelTextView) itemView.findViewById(R.id.title_marvel_text_v);
             priceMarvelT = (MarvelTextView) itemView.findViewById(R.id.price_marvel_text_v);
             photoImageV = (ImageView) itemView.findViewById(R.id.photo_image_v);
             favouriteImageV = (ImageView) itemView.findViewById(R.id.is_favourite_image_v);
             favouriteImageV.setOnClickListener(this::saveAsFavourite);
+        }
+
+        private void onComicClick(View view) {
+            onFavouriteClick.done(Pair.create(ITEM, comicList.get(getAdapterPosition())));
         }
 
         private void saveAsFavourite(View view) {
@@ -163,7 +182,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> 
         }
 
         void saveChangesComic(Comic comic) {
-            onFavouriteClick.done(comic);
+            onFavouriteClick.done(Pair.create(FAVORITE, comic));
         }
     }
 }

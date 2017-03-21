@@ -1,12 +1,14 @@
 package comics.core.presenter;
 
 import android.util.Log;
+import android.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import comics._utility.C;
+import comics._utility.Navigator;
 import comics.core.model.entity.Comic;
 import comics.core.model.entity.ComicDataWrapper;
 import comics.core.model.manager.ComicDataManager;
@@ -26,7 +28,7 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
     private ComicDataManager comicManager;
     private ComicAdapter comicAdapter;
     private final ArrayList<Comic> comicList = new ArrayList<>();
-    private final ViewCallback<Comic> onFavouriteClick = this::saveComicAsFavourite;
+    private final ViewCallback<Pair<Integer, Comic>> onFavouriteClick = this::saveComicAsFavourite;
     private boolean isAutoSave = true;
 
     public MainPresenter() {
@@ -67,6 +69,7 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onDone(Object object) {
         if (object instanceof ComicDataWrapper) {
             comicList.clear();
@@ -99,8 +102,20 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
 
     }
 
-    private void saveComicAsFavourite(Comic comic) {
-        comicManager.saveChangesComic(comic);
+    /**
+     * Callback from Adapter
+     * @param pair (first = {@link Integer} action and second = {@link Comic})
+     */
+    private void saveComicAsFavourite(Pair<Integer, Comic> pair) {
+        switch (pair.first) {
+            case ComicAdapter.ITEM:
+                Navigator.goToDetailActivity(mvpView.context(), pair.second);
+                break;
+            case ComicAdapter.FAVORITE:
+                comicManager.saveChangesComic(pair.second);
+                break;
+        }
+
     }
 
     @Override

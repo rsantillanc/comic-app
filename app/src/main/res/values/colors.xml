@@ -6,4 +6,6 @@
     <color name="filter_black">#d8000000</color>
     <color name="filter_red">#5aff0000</color>
     <color name="yellow">#FFFF00</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

@@ -1,6 +1,9 @@
 package comics.core.model.entity;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 import comics._utility.MapperUtility;
@@ -14,7 +17,7 @@ import io.realm.annotations.PrimaryKey;
  * http://rsantillanc.pe.hu/me/
  */
 
-public class Comic extends RealmObject {
+public class Comic extends RealmObject implements Parcelable {
 
     public static final String IS_FAVOURITE = "isFavourite";
 
@@ -132,4 +135,48 @@ public class Comic extends RealmObject {
         realm.executeTransaction(realm1 -> realm1.createOrUpdateObjectFromJson(Comic.class, MapperUtility.transformModelToJson(Comic.this)));
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.description);
+        dest.writeList(this.prices);
+        dest.writeLong(this.date);
+        dest.writeList(this.images);
+        dest.writeParcelable(this.thumbnail, flags);
+        dest.writeByte(this.isFavourite ? (byte) 1 : (byte) 0);
+    }
+
+    public Comic() {
+    }
+
+    protected Comic(Parcel in) {
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.title = in.readString();
+        this.description = in.readString();
+        this.prices = new RealmList<>();
+        in.readList(this.prices, Price.class.getClassLoader());
+        this.date = in.readLong();
+        this.images = new RealmList<>();
+        in.readList(this.images, Image.class.getClassLoader());
+        this.thumbnail = in.readParcelable(Image.class.getClassLoader());
+        this.isFavourite = in.readByte() != 0;
+    }
+
+    public static final Parcelable.Creator<Comic> CREATOR = new Parcelable.Creator<Comic>() {
+        @Override
+        public Comic createFromParcel(Parcel source) {
+            return new Comic(source);
+        }
+
+        @Override
+        public Comic[] newArray(int size) {
+            return new Comic[size];
+        }
+    };
 }

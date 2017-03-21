@@ -17,13 +17,14 @@ import pe.nextdots.comics.BuildConfig;
  * http://rsantillanc.pe.hu/me/
  */
 
-public abstract class BaseDataManager implements IRest{
+public abstract class BaseDataManager implements IRest {
 
     protected static final int COMIC = 100;
 
     @IntDef({COMIC})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Type {}
+    public @interface Type {
+    }
 
     MarvelApi api;
     String apiKey = BuildConfig.API_KEY;

@@ -43,13 +43,11 @@ public class MainActivity extends BaseActivity implements MainContract.MainView,
         setupUiElements();
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
         loadComics();
     }
-
 
     @Override
     protected void onDestroy() {
@@ -101,7 +99,6 @@ public class MainActivity extends BaseActivity implements MainContract.MainView,
         else presenter.onGetFavouriteComics();
     }
 
-
     private void createPresenter() {
         presenter = new MainPresenter();
         presenter.attachView(this);
@@ -119,7 +116,6 @@ public class MainActivity extends BaseActivity implements MainContract.MainView,
         staggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         comicRecyclerV.setLayoutManager(staggeredGridLayoutManager);
     }
-
 
     @Override
     public RecyclerView getComicRecyclerV() {
