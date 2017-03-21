@@ -4,6 +4,9 @@ package comics.core.model.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
 import java.util.List;
 
 import comics._utility.MapperUtility;
@@ -25,10 +28,15 @@ public class Comic extends RealmObject implements Parcelable {
     private Integer id;
     private String title;
     private String description;
-    private RealmList<Price> prices;
-    private long date;
-    private RealmList<Image> images;
+    @SerializedName("modified")
+    private Date date;
+    private int pageCount;
     private Image thumbnail;
+    private CreatorList creators;
+    private CharacterList characters;
+    private RealmList<Price> prices = new RealmList<>();
+    private RealmList<Image> images = new RealmList<>();
+    //Custom
     private boolean isFavourite = false;
 
 
@@ -54,14 +62,6 @@ public class Comic extends RealmObject implements Parcelable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public long getDate() {
-        return date;
-    }
-
-    public void setDate(long date) {
-        this.date = date;
     }
 
     public Image getThumbnail() {
@@ -135,6 +135,29 @@ public class Comic extends RealmObject implements Parcelable {
         realm.executeTransaction(realm1 -> realm1.createOrUpdateObjectFromJson(Comic.class, MapperUtility.transformModelToJson(Comic.this)));
     }
 
+    public Comic() {
+    }
+
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -145,30 +168,32 @@ public class Comic extends RealmObject implements Parcelable {
         dest.writeValue(this.id);
         dest.writeString(this.title);
         dest.writeString(this.description);
-        dest.writeList(this.prices);
-        dest.writeLong(this.date);
-        dest.writeList(this.images);
+        dest.writeLong(this.date != null ? this.date.getTime() : -1);
+        dest.writeInt(this.pageCount);
         dest.writeParcelable(this.thumbnail, flags);
+        dest.writeParcelable(this.creators, flags);
+        dest.writeParcelable(this.characters, flags);
+        dest.writeTypedList(this.prices);
+        dest.writeTypedList(this.images);
         dest.writeByte(this.isFavourite ? (byte) 1 : (byte) 0);
-    }
-
-    public Comic() {
     }
 
     protected Comic(Parcel in) {
         this.id = (Integer) in.readValue(Integer.class.getClassLoader());
         this.title = in.readString();
         this.description = in.readString();
-        this.prices = new RealmList<>();
-        in.readList(this.prices, Price.class.getClassLoader());
-        this.date = in.readLong();
-        this.images = new RealmList<>();
-        in.readList(this.images, Image.class.getClassLoader());
+        long tmpDate = in.readLong();
+        this.date = tmpDate == -1 ? null : new Date(tmpDate);
+        this.pageCount = in.readInt();
         this.thumbnail = in.readParcelable(Image.class.getClassLoader());
+        this.creators = in.readParcelable(CreatorList.class.getClassLoader());
+        this.characters = in.readParcelable(CharacterList.class.getClassLoader());
+        this.prices.addAll(in.createTypedArrayList(Price.CREATOR));
+        this.images.addAll(in.createTypedArrayList(Image.CREATOR));
         this.isFavourite = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<Comic> CREATOR = new Parcelable.Creator<Comic>() {
+    public static final Creator<Comic> CREATOR = new Creator<Comic>() {
         @Override
         public Comic createFromParcel(Parcel source) {
             return new Comic(source);

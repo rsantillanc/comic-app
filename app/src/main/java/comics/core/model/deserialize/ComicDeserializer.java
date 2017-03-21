@@ -9,7 +9,6 @@ import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 
-import comics._utility.MapperUtility;
 import comics.core.model.entity.Comic;
 import comics.core.model.entity.ComicDataWrapper;
 
@@ -19,12 +18,13 @@ import comics.core.model.entity.ComicDataWrapper;
 
 public class ComicDeserializer implements JsonDeserializer<ComicDataWrapper> {
 
-    private final String DATA = "data";
-    private final String RESULTS = "results";
-
 
     @Override
     public ComicDataWrapper deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        final String DATA = "data";
+        final String RESULTS = "results";
+        final String DATE = "ComicDate";
+
 
         //Convert to JsonObject
         JsonObject response = json.getAsJsonObject();
@@ -41,7 +41,8 @@ public class ComicDeserializer implements JsonDeserializer<ComicDataWrapper> {
 
         //loop comics
         for (JsonElement comicElement : comicArrays) {
-            wrapper.addComic(MapperUtility.transformModel((JsonObject) comicElement, Comic.class));
+            Comic comic = new Comic();
+            wrapper.addComic(comic);
         }
 
         //Return built data

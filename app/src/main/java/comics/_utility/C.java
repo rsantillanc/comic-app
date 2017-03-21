@@ -10,6 +10,7 @@ public class C {
     public static final String DOT = ".";
     public static final String USD = " USD";
     public static final String EMPTY = "";
+    public static final String DEFAULT_DATE = "yyyy-MM-dd'T'HH:mm:ss";
 
     public class Tag {
         public static final String REST = "#Rest";
