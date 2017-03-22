@@ -64,6 +64,8 @@ public class DetailPresenter extends BasePresenter<DetailContract.DetailView> im
             mvpView.setComicPrice(String.format(Locale.getDefault(), "%s%s", comic.getPrices().get(0).price, C.USD));
             mvpView.updateProgressIndicator(comic.getPrices().get(0).price);
         }
+        //show pages
+        mvpView.setComicPages(String.format(Locale.getDefault(), "%s%s", comic.getPageCount(), " pages"));
     }
 
     @Override

@@ -33,6 +33,8 @@ public class DetailActivity extends BaseActivity implements DetailContract.Detai
     @BindView(R.id.price_marvel_text_v)
     MarvelTextView priceMarvelTextV;
 
+    @BindView(R.id.pages_text_v)
+    AppCompatTextView pagesTextV;
 
     @BindView(R.id.indicator_progress_b)
     ProgressBar indicatorProgressB;
@@ -110,6 +112,11 @@ public class DetailActivity extends BaseActivity implements DetailContract.Detai
     @Override
     public void setComicPrice(String _price) {
         priceMarvelTextV.setText(_price.trim());
+    }
+
+    @Override
+    public void setComicPages(String _pages) {
+        pagesTextV.setText(_pages);
     }
 
     @Override
