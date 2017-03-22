@@ -9,6 +9,7 @@ import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 
+import comics._utility.MapperUtility;
 import comics.core.model.entity.Comic;
 import comics.core.model.entity.ComicDataWrapper;
 
@@ -41,8 +42,7 @@ public class ComicDeserializer implements JsonDeserializer<ComicDataWrapper> {
 
         //loop comics
         for (JsonElement comicElement : comicArrays) {
-            Comic comic = new Comic();
-            wrapper.addComic(comic);
+            wrapper.addComic(MapperUtility.transformModel((JsonObject) comicElement,Comic.class));
         }
 
         //Return built data

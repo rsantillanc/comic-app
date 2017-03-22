@@ -3,16 +3,26 @@ package comics.core.model.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 import io.realm.RealmList;
+import io.realm.RealmObject;
 
 /**
  * Created by Renzo D. Santillán Ch. on 21/03/2017.12:05 AM
  * http://rsantillanc.pe.hu/me/
  */
 
-public class CreatorList extends BaseMarvelList implements Parcelable {
+public class CreatorList extends RealmObject implements Parcelable {
 
+    protected int available;
+    protected int returned;
+    @SerializedName("collectionURI")
+    protected String collectionUri;
     private RealmList<CreatorSummary> items = new RealmList<>();
+
+    public CreatorList() {
+    }
 
     @Override
     public int describeContents() {
@@ -21,13 +31,16 @@ public class CreatorList extends BaseMarvelList implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.available);
+        dest.writeInt(this.returned);
+        dest.writeString(this.collectionUri);
         dest.writeTypedList(this.items);
     }
 
-    public CreatorList() {
-    }
-
     protected CreatorList(Parcel in) {
+        this.available = in.readInt();
+        this.returned = in.readInt();
+        this.collectionUri = in.readString();
         this.items.addAll(in.createTypedArrayList(CreatorSummary.CREATOR));
     }
 
