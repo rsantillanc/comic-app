@@ -13,5 +13,8 @@ public interface DetailContract {
         void loadComicPicture(String _url);
         void setComicTitle(String _title);
         void setComicDescription(String _description);
+        void setComicDate(String _date);
+        void setComicPrice(String _price);
+        void updateProgressIndicator(float _indicatorProgress);
     }
 }

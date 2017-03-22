@@ -73,6 +73,7 @@
                     android:id="@+id/title_text_v"
                     style="@style/TextAppearance.AppCompat.Title"
                     android:layout_width="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="Title here" />
@@ -83,7 +84,17 @@
                     style="@style/TextAppearance.AppCompat.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/lorem_ipsum" />
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="@string/no_description" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/date_text_v"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Ago. 2016 22:40"/>
             </LinearLayout>
 
             <android.support.v7.widget.CardView
@@ -102,34 +113,61 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="8dp"
+                    >
 
                     <android.support.v7.widget.AppCompatTextView
                         style="@style/TextAppearance.AppCompat.Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="Episodios" />
+                        android:text="Price" />
+
+                    <comics.ui.custom.widget.MarvelTextView
+                        android:id="@+id/price_marvel_text_v"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/unavailable"
+                        android:layout_gravity="end"
+                        android:textSize="@dimen/size_price"
+                        android:layout_marginBottom="8dp"
+                        android:textColor="@color/colorPrimary"
+                        app:customFont="true_crimes"/>
 
                     <android.support.v7.widget.AppCompatTextView
-                        style="@style/TextAppearance.AppCompat.Body1"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Capitulos" />
+                        android:layout_gravity="start"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textColor="@color/colorAccent"
+                        android:text="Cheap"/>
 
                     <ProgressBar
+                        android:id="@+id/indicator_progress_b"
                         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:max="100"
-                        android:progress="60" />
+                        android:max="50"
+                        android:progress="0" />
 
-                    <android.support.v7.widget.AppCompatButton
-                        style="@style/Widget.AppCompat.Button.Borderless"
+                    <android.support.v7.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Todos los episodios"
-                        android:textColor="@color/colorAccent" />
+                        android:fontFamily="sans-serif-condensed"
+                        android:textColor="@color/colorAccent"
+                        android:text="Expensive"/>
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Buy"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -201,7 +239,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:src="@drawable/ic_favorite_checked"
+        android:src="@drawable/ic_favorite_unchecked"
         app:elevation="4dp"
         app:fabSize="normal"
         app:layout_anchor="@id/appbar"

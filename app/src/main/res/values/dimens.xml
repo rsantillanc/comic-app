@@ -5,4 +5,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="size_h_comic_item">160dp</dimen>
     <dimen name="item_decoration">6dp</dimen>
+    <dimen name="size_price">25sp</dimen>
 </resources>

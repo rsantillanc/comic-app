@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 
@@ -11,6 +12,7 @@ import butterknife.BindView;
 import comics.core.presenter.DetailPresenter;
 import comics.core.view.DetailContract;
 import comics.ui.BaseActivity;
+import comics.ui.custom.widget.MarvelTextView;
 import comics.ui.custom.widget.SquareImageView;
 import pe.nextdots.comics.R;
 
@@ -24,6 +26,16 @@ public class DetailActivity extends BaseActivity implements DetailContract.Detai
 
     @BindView(R.id.description_text_v)
     AppCompatTextView descriptionTextV;
+
+    @BindView(R.id.date_text_v)
+    AppCompatTextView dateTextV;
+
+    @BindView(R.id.price_marvel_text_v)
+    MarvelTextView priceMarvelTextV;
+
+
+    @BindView(R.id.indicator_progress_b)
+    ProgressBar indicatorProgressB;
 
 
     private DetailPresenter presenter;
@@ -88,5 +100,20 @@ public class DetailActivity extends BaseActivity implements DetailContract.Detai
     @Override
     public void setComicDescription(String _description) {
         descriptionTextV.setText(_description.trim());
+    }
+
+    @Override
+    public void setComicDate(String _date) {
+        dateTextV.setText(_date.trim());
+    }
+
+    @Override
+    public void setComicPrice(String _price) {
+        priceMarvelTextV.setText(_price.trim());
+    }
+
+    @Override
+    public void updateProgressIndicator(float _indicatorProgress) {
+        indicatorProgressB.setProgress((int) _indicatorProgress);
     }
 }

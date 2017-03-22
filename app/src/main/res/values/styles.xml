@@ -36,6 +36,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowContentTransitions">true</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
 
         <!--windowLightStatusBar - API 23<=x cambia color texto statusBar entre blanco o negro-->
         <!--<item name="android:windowLightStatusBar">true</item>-->
