@@ -38,9 +38,8 @@ public class MainActivity extends BaseActivity implements MainContract.MainView,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        createToolbar(true, getLayoutInflater().inflate(R.layout.content_app_title, null));
+        createToolbar(true, R.layout.custom_toobar_title);
         createPresenter();
-        setupUiElements();
     }
 
     @Override
@@ -102,7 +101,7 @@ public class MainActivity extends BaseActivity implements MainContract.MainView,
     private void createPresenter() {
         presenter = new MainPresenter();
         presenter.attachView(this);
-        presenter.start();
+        presenter.initialize();
     }
 
     private void setupRecyclerView() {

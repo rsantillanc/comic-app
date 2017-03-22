@@ -28,13 +28,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name="comics.ui.detail.DetailActivity"
+            android:name="comics.ui.detail.PictureActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_detail"
             android:theme="@style/FullscreenTheme" />
+
         <activity
-            android:name="comics.ui.detail.EmptyActivity"
+            android:name="comics.ui.TestActivity"
+            android:theme="@style/ComicTranslucent" />
+
+        <activity
+            android:name="comics.ui.detail.DetailActivity"
             android:theme="@style/ComicTranslucent" />
     </application>
 

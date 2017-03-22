@@ -8,14 +8,12 @@ import android.support.v7.widget.RecyclerView;
 
 public interface MainContract {
     interface ViewAction {
-        void start();
 
         void onGetComics();
 
         void onGetFavouriteComics();
 
         void filterComicTextQuery(String query);
-
 
     }
 
