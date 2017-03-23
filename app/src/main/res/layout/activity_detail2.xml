@@ -20,18 +20,24 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title="@string/app_name">
 
-            <ImageView
-                android:id="@+id/iv_detalle_anime"
-                android:layout_width="match_parent"
+            <comics.ui.custom.widget.SquareImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                android:adjustViewBounds="true"
-                android:src="@drawable/default03"
-                android:contentDescription="@string/app_name"
-                app:layout_collapseMode="parallax"
-                android:visibility="gone"
+                android:src="@drawable/default02"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"/>
 
-                />
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_detalle_anime"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:fitsSystemWindows="true"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--android:src="@drawable/default03"-->
+                <!--android:contentDescription="@string/app_name"-->
+                <!--app:layout_collapseMode="parallax"-->
+                <!--android:visibility="visible"-->
+                <!--/>-->
 
             <View
                 android:layout_width="match_parent"
