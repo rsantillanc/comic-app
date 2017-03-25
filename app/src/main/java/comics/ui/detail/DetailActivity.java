@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
@@ -13,13 +15,13 @@ import comics.core.presenter.DetailPresenter;
 import comics.core.view.DetailContract;
 import comics.ui.BaseActivity;
 import comics.ui.custom.widget.MarvelTextView;
-import comics.ui.custom.widget.SquareImageView;
+import comics.ui.custom.widget.VerticalRectangleImageView;
 import pe.nextdots.comics.R;
 
 public class DetailActivity extends BaseActivity implements DetailContract.DetailView {
 
     @BindView(R.id.picture_square_image_v)
-    SquareImageView pictureSquareImageV;
+    VerticalRectangleImageView pictureVerticalImageV;
 
     @BindView(R.id.title_text_v)
     AppCompatTextView titleTextV;
@@ -38,6 +40,18 @@ public class DetailActivity extends BaseActivity implements DetailContract.Detai
 
     @BindView(R.id.indicator_progress_b)
     ProgressBar indicatorProgressB;
+
+    @BindView(R.id.name_series_text_v)
+    AppCompatTextView nameSeriesTextV;
+
+    @BindView(R.id.url_series_text_v)
+    AppCompatTextView urlSeriesTextV;
+
+    @BindView(R.id.characters_linear_l)
+    LinearLayout charactersLinearL;
+
+    @BindView(R.id.creators_linear_l)
+    LinearLayout creatorsLinearL;
 
 
     private DetailPresenter presenter;
@@ -80,6 +94,15 @@ public class DetailActivity extends BaseActivity implements DetailContract.Detai
     @Override
     public void setupUiElements() {
         bindActivity(this);
+        setupVerticalImageView();
+    }
+
+    private void setupVerticalImageView() {
+        pictureVerticalImageV.setOnClickListener(this::onClickPicture);
+    }
+
+    public void onClickPicture(View v){
+        presenter.onPictureClicked();
     }
 
     @Override
@@ -88,10 +111,10 @@ public class DetailActivity extends BaseActivity implements DetailContract.Detai
     }
 
     @Override
-    public void loadComicPicture(String url) {
+    public void loadComicPicture(String _url) {
         Glide.with(this)
-                .load(url)
-                .into(pictureSquareImageV);
+                .load(_url)
+                .into(pictureVerticalImageV);
     }
 
     @Override
@@ -120,7 +143,37 @@ public class DetailActivity extends BaseActivity implements DetailContract.Detai
     }
 
     @Override
-    public void updateProgressIndicator(float _indicatorProgress) {
-        indicatorProgressB.setProgress((int) _indicatorProgress);
+    public void setComicNameSeries(String _name_series) {
+        nameSeriesTextV.setText(_name_series.trim());
+    }
+
+    @Override
+    public void setComicUrlSeries(String _url_series) {
+        urlSeriesTextV.setText(_url_series.trim());
+    }
+
+    @Override
+    public void updateProgressIndicator(float _indicator_progress) {
+        indicatorProgressB.setProgress((int) _indicator_progress);
+    }
+
+    @Override
+    public void addComicCharacter(View _character_child) {
+        charactersLinearL.addView(_character_child);
+    }
+
+    @Override
+    public void addComicCreator(View _creator_child) {
+        creatorsLinearL.addView(_creator_child);
+    }
+
+    @Override
+    public void showCharacters(boolean _is_true) {
+        charactersLinearL.setVisibility(_is_true ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void showCreators(boolean _is_true) {
+        creatorsLinearL.setVisibility(_is_true ? View.VISIBLE : View.GONE);
     }
 }

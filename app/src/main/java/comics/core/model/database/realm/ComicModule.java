@@ -1,8 +1,13 @@
 package comics.core.model.database.realm;
 
+import comics.core.model.entity.CharacterList;
+import comics.core.model.entity.CharacterSummary;
 import comics.core.model.entity.Comic;
+import comics.core.model.entity.CreatorList;
+import comics.core.model.entity.CreatorSummary;
 import comics.core.model.entity.Image;
 import comics.core.model.entity.Price;
+import comics.core.model.entity.SeriesSummary;
 import io.realm.annotations.RealmModule;
 
 /**
@@ -13,6 +18,11 @@ import io.realm.annotations.RealmModule;
 @RealmModule(classes = {
         Comic.class,
         Image.class,
-        Price.class
+        Price.class,
+        CharacterList.class,
+        CreatorList.class,
+        CharacterSummary.class,
+        CreatorSummary.class,
+        SeriesSummary.class,
 })
-public class ComicModule {}
+class ComicModule {}

@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import comics._utility.C;
 import io.realm.RealmObject;
 
 /**
@@ -13,12 +12,11 @@ import io.realm.RealmObject;
  * http://rsantillanc.pe.hu/me/
  */
 
-public class CreatorSummary extends RealmObject implements Parcelable {
+public class SeriesSummary extends RealmObject implements Parcelable {
 
     @SerializedName("resourceURI")
     private String resourceUri;
     private String name;
-    private String role;
 
     public String getResourceUri() {
         return resourceUri;
@@ -36,14 +34,6 @@ public class CreatorSummary extends RealmObject implements Parcelable {
         this.name = name;
     }
 
-    public String getRole() {
-        return role != null ? role : C.EMPTY;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -53,27 +43,25 @@ public class CreatorSummary extends RealmObject implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.resourceUri);
         dest.writeString(this.name);
-        dest.writeString(this.role);
     }
 
-    public CreatorSummary() {
+    public SeriesSummary() {
     }
 
-    protected CreatorSummary(Parcel in) {
+    protected SeriesSummary(Parcel in) {
         this.resourceUri = in.readString();
         this.name = in.readString();
-        this.role = in.readString();
     }
 
-    public static final Parcelable.Creator<CreatorSummary> CREATOR = new Parcelable.Creator<CreatorSummary>() {
+    public static final Creator<SeriesSummary> CREATOR = new Creator<SeriesSummary>() {
         @Override
-        public CreatorSummary createFromParcel(Parcel source) {
-            return new CreatorSummary(source);
+        public SeriesSummary createFromParcel(Parcel source) {
+            return new SeriesSummary(source);
         }
 
         @Override
-        public CreatorSummary[] newArray(int size) {
-            return new CreatorSummary[size];
+        public SeriesSummary[] newArray(int size) {
+            return new SeriesSummary[size];
         }
     };
 }

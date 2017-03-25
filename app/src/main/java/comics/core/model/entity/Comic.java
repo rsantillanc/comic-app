@@ -34,6 +34,7 @@ public class Comic extends RealmObject implements Parcelable {
     private Image thumbnail;
     private CreatorList creators;
     private CharacterList characters;
+    private SeriesSummary series;
     private RealmList<Price> prices = new RealmList<>();
     private RealmList<Image> images = new RealmList<>();
     //Custom
@@ -158,6 +159,30 @@ public class Comic extends RealmObject implements Parcelable {
         this.id = id;
     }
 
+    public SeriesSummary getSeries() {
+        return series;
+    }
+
+    public CreatorList getCreators() {
+        return creators;
+    }
+
+    public void setCreators(CreatorList creators) {
+        this.creators = creators;
+    }
+
+    public CharacterList getCharacters() {
+        return characters;
+    }
+
+    public void setCharacters(CharacterList characters) {
+        this.characters = characters;
+    }
+
+    public void setSeries(SeriesSummary series) {
+        this.series = series;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -173,6 +198,7 @@ public class Comic extends RealmObject implements Parcelable {
         dest.writeParcelable(this.thumbnail, flags);
         dest.writeParcelable(this.creators, flags);
         dest.writeParcelable(this.characters, flags);
+        dest.writeParcelable(this.series, flags);
         dest.writeTypedList(this.prices);
         dest.writeTypedList(this.images);
         dest.writeByte(this.isFavourite ? (byte) 1 : (byte) 0);
@@ -188,6 +214,7 @@ public class Comic extends RealmObject implements Parcelable {
         this.thumbnail = in.readParcelable(Image.class.getClassLoader());
         this.creators = in.readParcelable(CreatorList.class.getClassLoader());
         this.characters = in.readParcelable(CharacterList.class.getClassLoader());
+        this.series = in.readParcelable(SeriesSummary.class.getClassLoader());
         this.prices.addAll(in.createTypedArrayList(Price.CREATOR));
         this.images.addAll(in.createTypedArrayList(Image.CREATOR));
         this.isFavourite = in.readByte() != 0;

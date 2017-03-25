@@ -7,22 +7,22 @@ import android.util.AttributeSet;
 /**
  * Created by andree on 24/08/2016.
  */
-public class SquareImageView extends AppCompatImageView {
-    public SquareImageView(Context context) {
+public class VerticalRectangleImageView extends AppCompatImageView {
+    public VerticalRectangleImageView(Context context) {
         super(context);
     }
 
-    public SquareImageView(Context context, AttributeSet attrs) {
+    public VerticalRectangleImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SquareImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public VerticalRectangleImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(getMeasuredWidth(), getMeasuredWidth());
+        setMeasuredDimension(getMeasuredWidth(), (int) (getMeasuredWidth() + (getMeasuredWidth() * 0.25)));
     }
 }

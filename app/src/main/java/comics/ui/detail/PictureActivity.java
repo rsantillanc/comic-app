@@ -7,7 +7,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
+import comics._utility.C;
 import pe.nextdots.comics.R;
 
 /**
@@ -93,9 +97,8 @@ public class PictureActivity extends AppCompatActivity {
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
-        mContentView = findViewById(R.id.fullscreen_content);
-
-
+        mContentView = findViewById(R.id.full_image_v);
+        Glide.with(this).load(getIntent().getStringExtra(C.Extra.URL)).into((ImageView) findViewById(R.id.full_image_v));
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +111,7 @@ public class PictureActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        findViewById(R.id.dummy_button).setOnClickListener(view -> finish());
     }
 
     @Override

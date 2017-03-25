@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import comics.core.model.entity.Comic;
 import comics.ui.detail.DetailActivity;
+import comics.ui.detail.PictureActivity;
 
 /**
  * Created by Renzo D. Santillán Chavez on 20/03/2017.
@@ -21,5 +22,12 @@ public class Navigator {
             detail.putExtras(b);
         }
         context.startActivity(detail);
+    }
+
+    public static void goToPictureActivity(Context context, String completeUrl) {
+        Intent picture = new Intent(context, PictureActivity.class);
+        picture.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        picture.putExtra(C.Extra.URL, completeUrl);
+        context.startActivity(picture);
     }
 }

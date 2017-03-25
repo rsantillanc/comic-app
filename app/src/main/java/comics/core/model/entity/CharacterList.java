@@ -26,6 +26,38 @@ public class CharacterList extends RealmObject implements Parcelable {
     public CharacterList() {
     }
 
+    public int getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(int available) {
+        this.available = available;
+    }
+
+    public int getReturned() {
+        return returned;
+    }
+
+    public void setReturned(int returned) {
+        this.returned = returned;
+    }
+
+    public String getCollectionUri() {
+        return collectionUri;
+    }
+
+    public void setCollectionUri(String collectionUri) {
+        this.collectionUri = collectionUri;
+    }
+
+    public RealmList<CharacterSummary> getItems() {
+        return items;
+    }
+
+    public void setItems(RealmList<CharacterSummary> items) {
+        this.items = items;
+    }
+
     @Override
     public int describeContents() {
         return 0;

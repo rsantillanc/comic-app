@@ -19,5 +19,6 @@ public class C {
 
     public class Extra {
         public static final String COMIC = "C.EXTRA.COMIC";
+        public static final String URL = "C.EXTRA.URL";
     }
 }

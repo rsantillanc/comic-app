@@ -6,4 +6,7 @@
     <dimen name="size_h_comic_item">160dp</dimen>
     <dimen name="item_decoration">6dp</dimen>
     <dimen name="size_price">25sp</dimen>
+    <dimen name="size_18sp">18sp</dimen>
+    <dimen name="size_17sp">17sp</dimen>
+    <dimen name="size_16sp">16sp</dimen>
 </resources>

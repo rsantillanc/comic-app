@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    style="@style/Widget.AppCompat.Button.Borderless"
+    >
+
+    <!--title-->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/size_16sp"
+        android:fontFamily="sans-serif-condensed"
+
+        android:text="@string/item_title"/>
+    <!--title-->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="italic"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/item_subtitle"/>
+</LinearLayout>

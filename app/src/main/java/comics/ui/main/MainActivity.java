@@ -40,12 +40,12 @@ public class MainActivity extends BaseActivity implements MainContract.MainView,
         super.onCreate(savedInstanceState);
         createToolbar(true, R.layout.custom_toobar_title);
         createPresenter();
+        loadComics();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loadComics();
     }
 
     @Override
