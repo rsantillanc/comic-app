@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +24,8 @@ import pe.nextdots.comics.R;
 public abstract class BaseActivity extends AppCompatActivity {
     //For animations duration
     protected static final long DEFAULT_DURATION = 2000L;
+    protected static final long APPEAR = 1L;
+    protected static final long DISAPPEAR = 0L;
     protected int heightScreen;
     protected int widthScreen;
 
@@ -72,6 +75,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         initHeightWidthSScreen();
     }
 
+
+    protected void animateLoginButton(long value, boolean isFast, View view) {
+        //Login button animation
+        ViewCompat.animate(view)
+                .setStartDelay(isFast ? 0 : DEFAULT_DURATION / 5)
+                .scaleX(value)
+                .scaleY(value)
+                .start();
+    }
     protected void showSnack(View v, int resId) {
         Snackbar.make(v, resId, Snackbar.LENGTH_LONG).show();
     }
