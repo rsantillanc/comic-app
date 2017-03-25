@@ -24,7 +24,6 @@ public class ComicDeserializer implements JsonDeserializer<ComicDataWrapper> {
     public ComicDataWrapper deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         final String DATA = "data";
         final String RESULTS = "results";
-        final String DATE = "ComicDate";
 
 
         //Convert to JsonObject
