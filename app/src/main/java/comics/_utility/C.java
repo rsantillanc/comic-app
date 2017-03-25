@@ -21,4 +21,8 @@ public class C {
         public static final String COMIC = "C.EXTRA.COMIC";
         public static final String URL = "C.EXTRA.URL";
     }
+
+    public class Key {
+        public static final String IS_FAVOURITE = "KEY.IS_FAVOURITE";
+    }
 }

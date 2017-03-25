@@ -17,10 +17,12 @@ public class Navigator {
         Intent detail = new Intent(context, DetailActivity.class);
         detail.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         if (comic != null) {
+            detail.putExtra(C.Key.IS_FAVOURITE, comic.isFavourite());
             Bundle b = new Bundle();
             b.putParcelable(C.Extra.COMIC, comic);
             detail.putExtras(b);
-        }
+        } else
+            return;
         context.startActivity(detail);
     }
 

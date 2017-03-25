@@ -1,5 +1,8 @@
 package comics.core.presenter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
@@ -11,6 +14,7 @@ import comics._utility.Navigator;
 import comics.core.model.entity.CharacterSummary;
 import comics.core.model.entity.Comic;
 import comics.core.model.entity.CreatorSummary;
+import comics.core.model.manager.ComicDataManager;
 import comics.core.view.DetailContract;
 import io.realm.RealmList;
 import pe.nextdots.comics.R;
@@ -22,6 +26,7 @@ import pe.nextdots.comics.R;
 public class DetailPresenter extends BasePresenter<DetailContract.DetailView> implements DetailContract.ViewAction {
 
     private Comic comic;
+    private ComicDataManager comicDataManager;
 
     @Override
     public void onDone(Object object) {
@@ -53,6 +58,7 @@ public class DetailPresenter extends BasePresenter<DetailContract.DetailView> im
         mvpView.setupUiElements();
         comic = mvpView.intent().getParcelableExtra(C.Extra.COMIC);
         showComicDetails();
+        comicDataManager = ComicDataManager.newInstance(this);
     }
 
     private void showComicDetails() {
@@ -162,7 +168,17 @@ public class DetailPresenter extends BasePresenter<DetailContract.DetailView> im
 
     @Override
     public void onPictureClicked() {
-        Navigator.goToPictureActivity(mvpView.context(),comic.getThumbnail().getCompleteUrl());
+        Navigator.goToPictureActivity(mvpView.context(), comic.getThumbnail().getCompleteUrl());
+    }
+
+    @Override
+    public void onButtonFavouriteClicked(View view) {
+        comicDataManager.saveChangesComic(comic);
+        ((FloatingActionButton) view).setImageResource(comic.isFavourite()
+                ? R.drawable.ic_favorite_checked :
+                R.drawable.ic_favorite_unchecked);
+        SharedPreferences pre = mvpView.context().getSharedPreferences(C.DEFAULT_DATE, Context.MODE_PRIVATE);
+        pre.edit().putBoolean(C.Key.IS_FAVOURITE, comic.isFavourite()).apply();
     }
 
 

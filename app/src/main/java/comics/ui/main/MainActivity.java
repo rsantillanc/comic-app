@@ -46,6 +46,7 @@ public class MainActivity extends BaseActivity implements MainContract.MainView,
     @Override
     protected void onResume() {
         super.onResume();
+        presenter.onRefreshCurrentItem();
     }
 
     @Override
@@ -178,13 +179,13 @@ public class MainActivity extends BaseActivity implements MainContract.MainView,
 
     @Override
     public boolean onQueryTextSubmit(String _query) {
-        presenter.filterComicTextQuery(_query);
+        presenter.onFilterComicTextQuery(_query);
         return true;
     }
 
     @Override
     public boolean onQueryTextChange(String _query) {
-        presenter.filterComicTextQuery(_query);
+        presenter.onFilterComicTextQuery(_query);
         return true;
     }
 }

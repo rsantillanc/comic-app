@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import comics._utility.C;
 import io.realm.RealmObject;
 
 /**
@@ -22,7 +21,7 @@ public class CharacterSummary extends RealmObject implements Parcelable {
 
 
     public String getRole() {
-        return role != null ? role : C.EMPTY;
+        return role != null ? role : "\r";
     }
 
     public void setRole(String role) {

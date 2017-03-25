@@ -3,6 +3,7 @@ package comics.ui.detail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
+import comics._utility.C;
 import comics.core.presenter.DetailPresenter;
 import comics.core.view.DetailContract;
 import comics.ui.BaseActivity;
@@ -52,6 +54,9 @@ public class DetailActivity extends BaseActivity implements DetailContract.Detai
 
     @BindView(R.id.creators_linear_l)
     LinearLayout creatorsLinearL;
+
+    @BindView(R.id.favorite_floating_b)
+    FloatingActionButton favoriteFloatingB;
 
 
     private DetailPresenter presenter;
@@ -95,13 +100,24 @@ public class DetailActivity extends BaseActivity implements DetailContract.Detai
     public void setupUiElements() {
         bindActivity(this);
         setupVerticalImageView();
+        setupFloatingButton();
+    }
+
+    private void setupFloatingButton() {
+        favoriteFloatingB.setOnClickListener(this::onFavouriteClick);
+        boolean isFavourite = intent().getBooleanExtra(C.Key.IS_FAVOURITE, false);
+        favoriteFloatingB.setImageResource(isFavourite ? R.drawable.ic_favorite_checked : R.drawable.ic_favorite_unchecked);
+    }
+
+    private void onFavouriteClick(View view) {
+        presenter.onButtonFavouriteClicked(view);
     }
 
     private void setupVerticalImageView() {
         pictureVerticalImageV.setOnClickListener(this::onClickPicture);
     }
 
-    public void onClickPicture(View v){
+    public void onClickPicture(View v) {
         presenter.onPictureClicked();
     }
 

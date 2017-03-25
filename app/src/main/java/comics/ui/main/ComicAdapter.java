@@ -167,6 +167,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> 
         }
 
         private void onComicClick(View view) {
+            setCurrentPosition(getAdapterPosition());
             onFavouriteClick.done(Pair.create(ITEM, comicList.get(getAdapterPosition())));
         }
 

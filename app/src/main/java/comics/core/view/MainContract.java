@@ -13,8 +13,9 @@ public interface MainContract {
 
         void onGetFavouriteComics();
 
-        void filterComicTextQuery(String query);
+        void onFilterComicTextQuery(String query);
 
+        void onRefreshCurrentItem();
     }
 
     interface MainView extends Loadable {

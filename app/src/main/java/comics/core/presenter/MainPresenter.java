@@ -1,5 +1,7 @@
 package comics.core.presenter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.util.Pair;
 
@@ -16,6 +18,7 @@ import comics.core.view.MainContract;
 import comics.core.view.ViewCallback;
 import comics.ui.custom.loader.GlideLoader;
 import comics.ui.main.ComicAdapter;
+import io.realm.Realm;
 import pe.nextdots.comics.R;
 
 /**
@@ -35,7 +38,6 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
     }
 
 
-
     @Override
     public void onGetComics() {
         mvpView.showLoader(true);
@@ -52,8 +54,26 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
     }
 
     @Override
-    public void filterComicTextQuery(String query) {
+    public void onFilterComicTextQuery(String query) {
         comicAdapter.getFilter().filter(query);
+    }
+
+    @Override
+    public void onRefreshCurrentItem() {
+        if (comicAdapter != null) {
+            SharedPreferences pre = mvpView.context().getSharedPreferences(C.DEFAULT_DATE, Context.MODE_PRIVATE);
+            boolean isFavourite = pre.getBoolean(C.Key.IS_FAVOURITE, false);
+            try {
+                comicList.get(comicAdapter.getCurrentPosition()).setFavourite(isFavourite);
+            } catch (Exception e) {
+                Realm realm = Realm.getDefaultInstance();
+                realm.beginTransaction();
+                comicList.get(comicAdapter.getCurrentPosition()).setFavourite(isFavourite);
+                realm.commitTransaction();
+            } finally {
+                comicAdapter.notifyItemChanged(comicAdapter.getCurrentPosition());
+            }
+        }
     }
 
 
@@ -99,6 +119,7 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
 
     /**
      * Callback from Adapter
+     *
      * @param pair (first = {@link Integer} action and second = {@link Comic})
      */
     private void saveComicAsFavourite(Pair<Integer, Comic> pair) {
