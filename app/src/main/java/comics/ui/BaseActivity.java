@@ -53,17 +53,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * This method can make a single/custom Toolbar.
      *
-     * @param isCustomView if is false then customView is null.
-     * @param customView {@link View} to inflate a view into ActionBar.
+     * @param isCustomView if is false then resIdCustomView is null.
+     * @param resIdCustomView   {@link View} to inflate a view into ActionBar.
      */
-    protected void createToolbar(boolean isCustomView, View customView) {
+    protected void createToolbar(boolean isCustomView, int resIdCustomView) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (isCustomView) {
             toolbar.setTitle(C.EMPTY);
             ActionBar.LayoutParams params = new ActionBar.LayoutParams(
                     ActionBar.LayoutParams.MATCH_PARENT,
                     ActionBar.LayoutParams.MATCH_PARENT);
-            toolbar.addView(customView, params);
+            toolbar.addView(getLayoutInflater().inflate(resIdCustomView, null), params);
         }
         setSupportActionBar(toolbar);
     }

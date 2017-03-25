@@ -91,6 +91,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewH> 
         Price price = comicList.get(position).getPrices().get(0);
         if (price.price > 0)
             holder.priceMarvelT.setText(String.format(Locale.getDefault(), "%s%s", price.price, C.USD));
+        else holder.priceMarvelT.setText(R.string.unavailable);
     }
 
     @Override

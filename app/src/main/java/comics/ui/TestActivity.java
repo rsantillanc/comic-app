@@ -1,20 +1,20 @@
-package comics.ui.detail;
+package comics.ui;
 
 import android.os.Bundle;
 
-import comics.ui.BaseActivity;
 import pe.nextdots.comics.R;
 
-public class EmptyActivity extends BaseActivity {
+public class TestActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        createToolbar(false, null);
+        createToolbar(true, R.layout.custom_toobar_title);
+
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_detail2;
+        return R.layout.activity_detail;
     }
 }

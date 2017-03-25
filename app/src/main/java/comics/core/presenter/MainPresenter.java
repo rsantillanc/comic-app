@@ -35,11 +35,6 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
     }
 
 
-    @Override
-    public void start() {
-        if (comicManager == null)
-            comicManager = ComicDataManager.newInstance(this);
-    }
 
     @Override
     public void onGetComics() {
@@ -139,4 +134,20 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
     }
 
 
+    @Override
+    public void initialize() {
+        mvpView.setupUiElements();
+        if (comicManager == null)
+            comicManager = ComicDataManager.newInstance(this);
+    }
+
+    @Override
+    public void onCreate() {
+        mvpView.setupUiElements();
+    }
+
+    @Override
+    public void onDestroy() {
+
+    }
 }

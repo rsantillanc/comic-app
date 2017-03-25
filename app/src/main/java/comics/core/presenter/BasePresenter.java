@@ -1,5 +1,7 @@
 package comics.core.presenter;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 
 /**
@@ -7,6 +9,7 @@ import android.support.annotation.NonNull;
  */
 
 public abstract class BasePresenter<T> implements Operation {
+    protected Handler handler = new Handler(Looper.getMainLooper());
     protected T mvpView;
 
     public void attachView(@NonNull T view) {
@@ -17,4 +20,9 @@ public abstract class BasePresenter<T> implements Operation {
         mvpView = null;
     }
 
+    public abstract void initialize();
+
+    // Activity life cycle
+    public abstract void onCreate();
+    public abstract void onDestroy();
 }
