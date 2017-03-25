@@ -22,4 +22,6 @@
     <string name="item_title">Here item title</string>
     <string name="item_subtitle">Here subtitle</string>
     <string name="close">Close</string>
+    <string name="next">Next</string>
+    <string name="dots">Dots</string>
 </resources>

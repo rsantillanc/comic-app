@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity implements MainContract.MainView,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        createToolbar(true, R.layout.custom_toobar_title);
+        createToolbar(true, R.layout.custom_title);
         createPresenter();
         loadComics();
     }

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="comics.ui.login.LoginActivity">
+
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/default03"
+        tools:context="smsdashboard.ui.login.LoginActivity">
+
+        <!--Filter color-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.35"
+            android:background="@android:color/black" />
+
+        <!--Header-->
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:minHeight="?attr/actionBarSize"
+            android:orientation="horizontal"
+            app:layout_heightPercent="10%">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/logo_first_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:text="@string/next"
+                android:textColor="@color/grey_200"
+                android:textSize="@dimen/sp_19"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/logo_second_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:alpha="0.6"
+                android:gravity="center"
+                android:text="@string/dots"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_19" />
+        </LinearLayout>
+
+        <!-- body -->
+        <LinearLayout
+            android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_below="@id/header"
+            android:gravity="center"
+            app:layout_heightPercent="55%">
+
+            <LinearLayout
+                android:id="@+id/logo_container"
+                android:layout_width="230dp"
+                android:layout_height="230dp"
+                android:gravity="center"
+                android:elevation="8dp"
+                android:orientation="vertical">
+                <!--App name-->
+                <comics.ui.custom.widget.MarvelTextView
+                    android:id="@+id/title_marvel_text_v"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:shadowColor="@android:color/black"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="2"
+                    android:text="@string/app_name"
+                    android:textColor="@android:color/white"
+                    android:textSize="55sp"
+                    app:customFont="true_crimes" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <!-- second -->
+        <RelativeLayout
+            android:id="@+id/foot"
+            android:layout_width="match_parent"
+            android:layout_below="@id/body"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@color/filter_black"
+            app:layout_heightPercent="35%">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:visibility="invisible" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"
+                android:layout_above="@+id/google_button"
+                android:layout_margin="8dp"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/google_button"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_above="@+id/facebook_button"
+                android:text="Google"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@android:color/white"
+                android:elevation="4dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="8dp"
+               />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/facebook_button"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:text="Facebook"
+                android:elevation="4dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@android:color/white"
+                />
+        </RelativeLayout>
+
+    </android.support.percent.PercentRelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

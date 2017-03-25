@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "456258983960",
+    "firebase_url": "https://comic-f3b7f.firebaseio.com",
+    "project_id": "comic-f3b7f",
+    "storage_bucket": "comic-f3b7f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456258983960:android:2cea0e7406ca28cd",
+        "android_client_info": {
+          "package_name": "pe.nextdots.comics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456258983960-bidb6efi6voppmq6li8iflmn5gllmupu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pe.nextdots.comics",
+            "certificate_hash": "6a9601e00bfbd2110ef70d73d3b14800dc9070f6"
+          }
+        },
+        {
+          "client_id": "456258983960-1h251kqbficr3582344m5jrislhs1lat.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU3n2yJXZGMvAfIAOGzWojzkksFLEwxRI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456258983960-1h251kqbficr3582344m5jrislhs1lat.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
