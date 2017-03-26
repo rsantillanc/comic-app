@@ -1,5 +1,7 @@
 package comics.core.presenter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -35,14 +37,25 @@ public class LoginPresenter extends BasePresenter<LoginContract.LoginView> imple
             authStateListener = firebaseAuth1 -> {
                 FirebaseUser user = firebaseAuth1.getCurrentUser();
                 if (user != null) {
+                    saveUser(user);
                     Navigator.goToMainActivity(mvpView.context());
                     mvpView.finishActivity();
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
+                } else
                     mvpView.showMessage("User is signed out");
-                }
             };
+    }
+
+    private void saveUser(FirebaseUser user) {
+        SharedPreferences pref = mvpView.context().getSharedPreferences(C.DEFAULT_DATE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putString(C.Key.USER_NAME, user.getDisplayName()).apply();
+        edit.putString(C.Key.USER_EMAIL, user.getEmail()).apply();
+        edit.putString(C.Key.USER_PHOTO, user.getPhotoUrl().toString()).apply();
+        Log.d(C.Tag.MAIN, "FirebaseUser getDisplayName-> " + user.getDisplayName());
+        Log.d(C.Tag.MAIN, "FirebaseUser getEmail-> " + user.getEmail());
+        Log.d(C.Tag.MAIN, "FirebaseUser getProviderId-> " + user.getProviderId());
+        Log.d(C.Tag.MAIN, "FirebaseUser getPhotoUrl-> " + user.getPhotoUrl());
+        Log.d(C.Tag.MAIN, "FirebaseUser getUid-> " + user.getUid());
     }
 
     @Override
@@ -54,7 +67,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.LoginView> imple
     public void onDestroy() {
         if (authStateListener != null)
             firebaseAuth.removeAuthStateListener(authStateListener);
-        FirebaseAuth.getInstance().signOut();
+//        FirebaseAuth.getInstance().signOut();
     }
 
     @Override
@@ -83,17 +96,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.LoginView> imple
     }
 
     @Override
-    public void onGoogleLogin() {
-
-    }
-
-    @Override
-    public void onFacebookLogin() {
-
-    }
-
-    @Override
-    public void onFirebaseAuthWithGoogle(GoogleSignInAccount account) {
+    public void onGoogleLogin(GoogleSignInAccount account) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
@@ -108,4 +111,10 @@ public class LoginPresenter extends BasePresenter<LoginContract.LoginView> imple
                         mvpView.showMessage("Authentication failed.");
                 });
     }
+
+    @Override
+    public void onFacebookLogin() {
+
+    }
+
 }

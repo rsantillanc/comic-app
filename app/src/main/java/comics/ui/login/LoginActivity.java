@@ -114,7 +114,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
             Log.d(C.Tag.MAIN, "GoogleSignInResult " + result.getStatus());
             if (result.isSuccess())
                 // Google Sign In was successful, authenticate with Firebase
-                presenter.onFirebaseAuthWithGoogle(result.getSignInAccount());
+                presenter.onGoogleLogin(result.getSignInAccount());
             else {
                 showLoader(false);
                 showMessage(getString(R.string.error_session));

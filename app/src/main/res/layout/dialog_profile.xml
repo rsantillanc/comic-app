@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal" />
+
+    <LinearLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:layout_below="@+id/header"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="@dimen/size_image_profile"
+            android:layout_height="@dimen/size_image_profile"
+            android:src="@drawable/ic_account" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/name_text_v"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="@dimen/sp_18"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/default_name"
+            android:textColor="@android:color/black" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/email_text_v"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/default_email"
+            android:textColor="@color/colorAccent" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/logout_text_v"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/action_logout"
+        android:visibility="visible"
+        android:layout_below="@+id/body"
+        android:layout_marginTop="-16dp"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimary" />
+
+
+
+</RelativeLayout>

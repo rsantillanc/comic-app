@@ -15,10 +15,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import butterknife.BindView;
+import comics._utility.MenuColorizer;
 import comics._utility.NetworkUtility;
 import comics.core.presenter.MainPresenter;
 import comics.core.view.MainContract;
 import comics.ui.BaseActivity;
+import comics.ui.custom.dialog.ProfileDialog;
 import comics.ui.custom.widget.ItemOffsetDecoration;
 import pe.nextdots.comics.R;
 
@@ -64,6 +66,7 @@ public class MainActivity extends BaseActivity implements MainContract.MainView,
         searchView.setQueryHint(getString(R.string.hint_search));
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(this);
+        MenuColorizer.showIcons(menu);
         return true;
     }
 
@@ -73,15 +76,30 @@ public class MainActivity extends BaseActivity implements MainContract.MainView,
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
-            case R.id.main_action_refresh:
+            case R.id.main_refresh:
                 loadComics();
                 break;
-            case R.id.main_action_favourite:
+            case R.id.main_favourite:
                 loadFavouriteComics(item);
+                break;
+            case R.id.main_profile:
+                showUserProfile();
+                break;
+            case R.id.main_logout:
+                logout();
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showUserProfile() {
+        ProfileDialog profileDialog = ProfileDialog.newInstance(view -> logout());
+        profileDialog.show(getSupportFragmentManager(), ProfileDialog.class.getSimpleName());
+    }
+
+    private void logout() {
+        presenter.onCloseSession();
     }
 
     private void loadFavouriteComics(MenuItem menuItem) {

@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.util.Pair;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -76,6 +78,15 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
         }
     }
 
+    @Override
+    public void onCloseSession() {
+        FirebaseAuth.getInstance().signOut();
+        SharedPreferences pref = mvpView.context().getSharedPreferences(C.DEFAULT_DATE,Context.MODE_PRIVATE);
+        pref.edit().clear().apply();
+        Navigator.goToLoginActivity(mvpView.context());
+        mvpView.finishActivity();
+    }
+
 
     private int generateRandomLimit() {
         final int MAX = 100;
@@ -114,12 +125,10 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
         }
         comicAdapter.notifyDataSetChanged();
         comicAdapter.setAutoSave(isAutoSave);
-
     }
 
     /**
      * Callback from Adapter
-     *
      * @param pair (first = {@link Integer} action and second = {@link Comic})
      */
     private void saveComicAsFavourite(Pair<Integer, Comic> pair) {

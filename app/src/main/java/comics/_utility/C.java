@@ -24,5 +24,8 @@ public class C {
 
     public class Key {
         public static final String IS_FAVOURITE = "KEY.IS_FAVOURITE";
+        public static final String USER_NAME = "KEY.USER_NAME";
+        public static final String USER_EMAIL = "KEY.USER_EMAIL";
+        public static final String USER_PHOTO = "KEY.USER_PHOTO";
     }
 }

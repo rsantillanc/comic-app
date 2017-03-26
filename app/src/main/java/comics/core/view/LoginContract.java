@@ -8,11 +8,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
  */
 public interface LoginContract {
     interface ViewActions {
-        void onGoogleLogin();
+
+        void onGoogleLogin(GoogleSignInAccount account);
 
         void onFacebookLogin();
 
-        void onFirebaseAuthWithGoogle(GoogleSignInAccount account);
     }
 
     interface LoginView extends Loadable {

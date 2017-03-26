@@ -16,6 +16,8 @@ public interface MainContract {
         void onFilterComicTextQuery(String query);
 
         void onRefreshCurrentItem();
+
+        void onCloseSession();
     }
 
     interface MainView extends Loadable {
