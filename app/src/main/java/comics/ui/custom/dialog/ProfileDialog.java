@@ -42,16 +42,6 @@ public class ProfileDialog extends DialogFragment {
         return dialog;
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        if (getDialog().getWindow() != null) {
-//            getDialog().getWindow().setLayout(
-//                            ViewGroup.LayoutParams.MATCH_PARENT,
-//                            ViewGroup.LayoutParams.WRAP_CONTENT);
-//        }
-//    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

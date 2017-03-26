@@ -30,6 +30,7 @@
         android:layout_margin="16dp"
         android:contentDescription="@string/app_name"
         android:elevation="8dp"
+        android:tint="@android:color/white"
         android:src="@drawable/ic_favorite_unchecked" />
     <!--Title-->
     <comics.ui.custom.widget.MarvelTextView
