@@ -7,6 +7,7 @@ import android.os.Bundle;
 import comics.core.model.entity.Comic;
 import comics.ui.detail.DetailActivity;
 import comics.ui.detail.PictureActivity;
+import comics.ui.main.MainActivity;
 
 /**
  * Created by Renzo D. Santillán Chavez on 20/03/2017.
@@ -30,6 +31,12 @@ public class Navigator {
         Intent picture = new Intent(context, PictureActivity.class);
         picture.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         picture.putExtra(C.Extra.URL, completeUrl);
+        context.startActivity(picture);
+    }
+
+    public static void goToMainActivity(Context context) {
+        Intent picture = new Intent(context, MainActivity.class);
+        picture.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(picture);
     }
 }
