@@ -117,7 +117,8 @@ public class DetailPresenter extends BasePresenter<DetailContract.DetailView> im
     private void showComicSeries() {
         //Show series
         mvpView.setComicNameSeries(comic.getSeries().getName());
-        mvpView.setComicUrlSeries(comic.getSeries().getResourceUri());
+        boolean isNull = comic.getSeries().getResourceUri() == null;
+        mvpView.setComicUrlSeries(isNull ? C.EMPTY : comic.getSeries().getResourceUri());
     }
 
     private void showComicPages() {
@@ -135,7 +136,9 @@ public class DetailPresenter extends BasePresenter<DetailContract.DetailView> im
 
     private void showComicDate() {
         //show date
-        mvpView.setComicDate(DateUtility.F1.format(comic.getDate()));
+        if (comic.getDate() != null) {
+            mvpView.setComicDate(DateUtility.F1.format(comic.getDate().getTime()));
+        }
     }
 
     private void showComicDescription() {

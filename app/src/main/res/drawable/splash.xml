@@ -6,8 +6,9 @@
         </shape>
     </item>
 
+    <!--Change for your company logo in svg format-->
     <item
-        android:drawable="@drawable/marvel_default"
+        android:drawable="@drawable/ic_default_company"
         android:gravity="center">
     </item>
 </layer-list>
