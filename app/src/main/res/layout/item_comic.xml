@@ -14,7 +14,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/app_name"
         android:scaleType="fitXY"
-        android:src="@drawable/default" />
+        android:src="@drawable/default_thumbnail" />
 
     <!--Filter color-->
     <View
