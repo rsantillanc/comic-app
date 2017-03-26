@@ -10,7 +10,4 @@ public enum Rest {
     ERROR,
     NETWORK_ERROR,
     NONE;
-
-
-
 }

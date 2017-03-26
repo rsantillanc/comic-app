@@ -49,7 +49,7 @@ public class ComicDataManager extends BaseDataManager {
     void createRestApi() {
         RestAdapter restAdapter = new RestAdapter(Connection.URL_BASE);
         ComicDeserializer deserialize = new ComicDeserializer();
-        api = restAdapter.createApiWithCustomConverter(ComicDataWrapper.class, deserialize);
+        marvelApi = restAdapter.createApiWithCustomConverter(ComicDataWrapper.class, deserialize);
     }
 
     public void getComicsFromServer() {
@@ -101,7 +101,7 @@ public class ComicDataManager extends BaseDataManager {
 
     private void getComics() {
 
-        api.getComics(limit, apiKey, timestamp, hash).enqueue(new Callback<ComicDataWrapper>() {
+        marvelApi.getComics(limit, apiKey, timestamp, hash).enqueue(new Callback<ComicDataWrapper>() {
             @Override
             public void onResponse(Call<ComicDataWrapper> call, Response<ComicDataWrapper> response) {
                 onRestResponse(response, COMIC);

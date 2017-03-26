@@ -26,7 +26,7 @@ public abstract class BaseDataManager implements IRest {
     public @interface Type {
     }
 
-    MarvelApi api;
+    MarvelApi marvelApi;
     String apiKey = BuildConfig.API_KEY;
     long timestamp = System.currentTimeMillis();
     String hash = SecureUtility.MakeMd5Hash(timestamp);
@@ -34,6 +34,6 @@ public abstract class BaseDataManager implements IRest {
 
     void createRestApi() {
         RestAdapter restAdapter = new RestAdapter(Connection.URL_BASE);
-        api = restAdapter.createApi();
+        marvelApi = restAdapter.createApi();
     }
 }
