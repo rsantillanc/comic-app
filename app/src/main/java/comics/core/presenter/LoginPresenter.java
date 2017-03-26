@@ -40,8 +40,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.LoginView> imple
                     saveUser(user);
                     Navigator.goToMainActivity(mvpView.context());
                     mvpView.finishActivity();
-                } else
-                    mvpView.showMessage("User is signed out");
+                }
             };
     }
 

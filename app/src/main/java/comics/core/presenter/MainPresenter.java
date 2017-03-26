@@ -116,7 +116,7 @@ public class MainPresenter extends BasePresenter<MainContract.MainView> implemen
     private void notifyComicAdapter() {
         Log.d(C.Tag.MAIN, "Total comics: " + comicList.size());
         if (comicAdapter == null) {
-            comicAdapter = new ComicAdapter(comicList, new GlideLoader(mvpView.context(), R.drawable.marvel_default));
+            comicAdapter = new ComicAdapter(comicList, new GlideLoader(mvpView.context(), R.drawable.default_thumbnail));
             comicAdapter.setOnFavouriteClick(onFavouriteClick);
 
             mvpView.getComicRecyclerV().setAdapter(comicAdapter);
